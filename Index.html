@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hasanboy_dev | Frontend & Bot Developer</title>
+<link rel="icon" type="jpg" href="images/Icon.jpg">
+<meta name="description" content="Hasanboy_dev — frontend veb-sahifalar va Python asosidagi Telegram botlar yarataman.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container header-inner">
+    <a href="#about" class="logo"><span class="logo-tag">
+        <img src="images/Icon.jpg" alt="Rasm bor" height="15px">
+        &lt;hasanboy_dev /&gt;</span></a>
+    <nav class="site-nav">
+      <a href="#about">Men haqimda</a>
+      <a href="#achievements">Yutuqlarim</a>
+      <a href="#services">Qila oladigan ishlarim</a>
+      <a href="#projects">Loyihalarim</a>
+    </nav>
+    <a href="https://t.me/KhomidjonovH" class="nav-cta" target="_blank" rel="noopener noreferrer">Bog'lanish</a>
+  </div>
+</header>
+
+<main>
+
+  <!-- SECTION 1: MEN HAQIMDA -->
+  <section id="about" class="section hero">
+    <div class="container hero-inner">
+      <div class="hero-copy">
+        <p class="hero-kicker">Frontend &amp; Python Developer</p>
+        <h1 class="hero-title">Men haqimda</h1>
+        <p class="hero-desc">
+          Men Hasanboy — 3 yildan beri frontend yo'nalishida muntazam o'rganib, amaliyot qilib kelaman:
+          HTML, CSS va JavaScript yordamida toza va tez ishlaydigan interfeyslar quraman.
+          Shu bilan birga Python tilida 10 dan ortiq Telegram bot yaratganman — musiqa saqlash, guruh
+          boshqaruvi, moderatsiya va referal tizimlari kabi yo'nalishlarda. Ma'lumotlarni saqlash va
+          boshqarish uchun MySQL bazalaridan foydalanaman, shuning uchun har bir loyiham nafaqat
+          ko'rinishga, balki tuzilishga ham asoslangan.
+        </p>
+        <div class="hero-actions">
+          <a href="#projects" class="btn btn-primary">Loyihalarni ko'rish</a>
+          <a href="#services" class="btn btn-ghost">Nima qila olaman</a>
+        </div>
+      </div>
+
+      <div class="code-panel">
+        <div class="code-panel-head">
+          <span class="dot dot-red"></span>
+          <span class="dot dot-yellow"></span>
+          <span class="dot dot-green"></span>
+          <span class="code-panel-name">bot_handler.py</span>
+        </div>
+        <pre class="code-panel-body"><code><span class="tok-kw">from</span> aiogram <span class="tok-kw">import</span> Bot, Dispatcher, types
+
+bot = Bot(token=TOKEN)
+dp = Dispatcher()
+
+<span class="tok-fn">@dp.message()</span>
+<span class="tok-kw">async def</span> <span class="tok-fn">save_track</span>(message: types.Message):
+    <span class="tok-com"># Musiqani bazaga saqlash</span>
+    track = <span class="tok-kw">await</span> extract_audio(message)
+    <span class="tok-kw">await</span> db.tracks.insert(track)
+    <span class="tok-kw">await</span> message.reply(<span class="tok-str">"✅ Qo'shiq saqlandi!"</span>)</code></pre>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 2: YUTUQLARIM -->
+  <section id="achievements" class="section achievements">
+    <div class="container">
+      <div class="section-head">
+        <h2 class="section-title">Yutuqlarim</h2>
+        <p class="section-subtitle">Yillar davomida to'plangan tajriba va real natijalar.</p>
+      </div>
+      <div class="milestone-grid">
+        <div class="milestone-card">
+          <span class="milestone-number">3+</span>
+          <h3 class="milestone-label">Yillik tajriba</h3>
+          <p class="milestone-desc">Frontend yo'nalishida muntazam mashq va real loyihalar ustida ishlash.</p>
+        </div>
+        <div class="milestone-card">
+          <span class="milestone-number">10+</span>
+          <h3 class="milestone-label">Telegram bot</h3>
+          <p class="milestone-desc">Foydalanuvchilar tomonidan real ishlatilayotgan botlar yaratilgan.</p>
+        </div>
+        <div class="milestone-card">
+          <span class="milestone-number">MySQL</span>
+          <h3 class="milestone-label">Ma'lumotlar bazasi</h3>
+          <p class="milestone-desc">Bazalarni loyihalash va boshqarish bo'yicha amaliy tajriba.</p>
+        </div>
+        <div class="milestone-card">
+          <span class="milestone-number">7+</span>
+          <h3 class="milestone-label">Jonli loyiha</h3>
+          <p class="milestone-desc">Netlify va Telegram orqali ommaga taqdim etilgan ishlaydigan namunalar.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 3: QILA OLADIGAN ISHLARIM -->
+  <section id="services" class="section services">
+    <div class="container">
+      <div class="section-head">
+        <h2 class="section-title">Qila oladigan ishlarim</h2>
+        <p class="section-subtitle">Ko'rinadigan interfeysdan tortib, uni harakatga keltiruvchi mantiqgacha.</p>
+      </div>
+      <div class="services-grid">
+        <div class="service-card">
+          <h3 class="service-title">Frontend UI</h3>
+          <p class="service-desc">Toza, tez yuklanadigan va har qanday ekranda to'g'ri ko'rinadigan interfeyslar.</p>
+          <ul class="service-list">
+            <li>HTML5, CSS3, JavaScript</li>
+            <li>Responsive va adaptiv dizayn</li>
+            <li>UI animatsiyalar</li>
+          </ul>
+        </div>
+        <div class="service-card">
+          <h3 class="service-title">Bot avtomatizatsiyasi</h3>
+          <p class="service-desc">Telegram botlari orqali kundalik va guruh jarayonlarini avtomatlashtirish.</p>
+          <ul class="service-list">
+            <li>Python, Aiogram</li>
+            <li>Guruh boshqaruvi va moderatsiya</li>
+            <li>Referal va statistik tizimlar</li>
+          </ul>
+        </div>
+        <div class="service-card">
+          <h3 class="service-title">SQL bazalari</h3>
+          <p class="service-desc">Ma'lumotlarni to'g'ri saqlaydigan va tez ishlaydigan baza tuzilmalari.</p>
+          <ul class="service-list">
+            <li>MySQL loyihalash</li>
+            <li>Ma'lumotlar modellashtirish</li>
+            <li>So'rovlarni optimallashtirish</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 4: LOYIHALARIM VA NAMUNALAR -->
+  <section id="projects" class="section projects">
+    <div class="container">
+      <div class="section-head">
+        <h2 class="section-title">Loyihalarim va Namunalar</h2>
+        <p class="section-subtitle">Frontend va Python yordamida yaratilgan real veb-saytlar va Telegram botlar.</p>
+      </div>
+
+      <div class="project-grid">
+
+        <article class="project-card">
+          <div class="project-card-top">
+            <span class="badge-type badge-web">Veb Loyiha</span>
+          </div>
+          <h3 class="project-title">Interactive Web Platform</h3>
+          <p class="project-desc">Foydalanuvchi bilan interaktiv aloqada bo'ladigan zamonaviy frontend veb-platforma.</p>
+          <div class="tech-tags">
+            <span class="tech-tag">HTML5</span>
+            <span class="tech-tag">CSS3</span>
+            <span class="tech-tag">JavaScript</span>
+          </div>
+          <a href="https://stellar-narwhal-97aae4.netlify.app" class="project-link" target="_blank" rel="noopener noreferrer">
+            Ko'rish <span aria-hidden="true">↗</span>
+          </a>
+        </article>
+
+        <article class="project-card">
+          <div class="project-card-top">
+            <span class="badge-type badge-web">Veb Loyiha</span>
+          </div>
+          <h3 class="project-title">Modern Animated Interface</h3>
+          <p class="project-desc">Chiroyli animatsiyalar va zamonaviy UI/UX standartlari asosida yaratilgan interfeys.</p>
+          <div class="tech-tags">
+            <span class="tech-tag">Responsive Web</span>
+            <span class="tech-tag">CSS Animation</span>
+          </div>
+          <a href="https://soft-conkies-9c307f.netlify.app" class="project-link" target="_blank" rel="noopener noreferrer">
+            Ko'rish <span aria-hidden="true">↗</span>
+          </a>
+        </article>
+
+        <article class="project-card">
+          <div class="project-card-top">
+            <span class="badge-type badge-bot">Telegram Bot</span>
+          </div>
+          <h3 class="project-title">Qo'shiqlar Saqlovchi Bot</h3>
+          <p class="project-desc">Sevimli musiqalarni qidirish, yuklab olish va saqlash uchun mo'ljallangan avtomatlashtirilgan bot.</p>
+          <div class="tech-tags">
+            <span class="tech-tag">Python</span>
+            <span class="tech-tag">Telegram API</span>
+          </div>
+          <a href="https://t.me/qoshiqlar_saqla_bot" class="project-link" target="_blank" rel="noopener noreferrer">
+            Botni ochish <span aria-hidden="true">↗</span>
+          </a>
+        </article>
+
+        <article class="project-card">
+          <div class="project-card-top">
+            <span class="badge-type badge-bot">Telegram Bot</span>
+          </div>
+          <h3 class="project-title">Nazoratchilar Boti</h3>
+          <p class="project-desc">Guruhlar tartibini nazorat qiluvchi, havolalar va taqiqlangan so'zlarni filtrlovchi bot.</p>
+          <div class="tech-tags">
+            <span class="tech-tag">Python</span>
+            <span class="tech-tag">Moderation Bot</span>
+          </div>
+          <a href="https://t.me/Nazoratchilari_bot" class="project-link" target="_blank" rel="noopener noreferrer">
+            Botni ochish <span aria-hidden="true">↗</span>
+          </a>
+        </article>
+
+        <article class="project-card">
+          <div class="project-card-top">
+            <span class="badge-type badge-bot">Telegram Bot</span>
+          </div>
+          <h3 class="project-title">Referal Boti</h3>
+          <p class="project-desc">Shaxsiy referal havolalar orqali taklif qilingan a'zolar hisobini yurituvchi va ball/statistika hisoblovchi avtomatlashtirilgan bot.</p>
+          <div class="tech-tags">
+            <span class="tech-tag">Python</span>
+            <span class="tech-tag">Group Management</span>
+          </div>
+          <a href="https://t.me/Guruhlari_bot" class="project-link" target="_blank" rel="noopener noreferrer">
+            Botni ochish <span aria-hidden="true">↗</span>
+          </a>
+        </article>
+
+        <article class="project-card">
+          <div class="project-card-top">
+            <span class="badge-type badge-bot">Telegram Bot</span>
+          </div>
+          <h3 class="project-title">E-Kutubxona Boti</h3>
+          <p class="project-desc">Foydalanuvchilarga elektron kitoblar katalogini taqdim etuvchi interaktiv kutubxona boti.</p>
+          <div class="tech-tags">
+            <span class="tech-tag">Python</span>
+            <span class="tech-tag">Database</span>
+            <span class="tech-tag">Library System</span>
+          </div>
+          <a href="https://t.me/uz_ekutubxona_bot" class="project-link" target="_blank" rel="noopener noreferrer">
+            Botni ochish <span aria-hidden="true">↗</span>
+          </a>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <span class="logo-tag footer-logo">&lt;hasanboy_dev /&gt;</span>
+    <div class="footer-links">
+      <a href="https://t.me/KhomidjonovH" class="footer-link" target="_blank" rel="noopener noreferrer">Telegram</a>
+      <a href="https://github.com/Hasanboy-Homidjonov" class="footer-link" target="_blank" rel="noopener noreferrer">GitHub</a>
+      <a href="https://mail.google.com/mail/?view=cm&fs=1&to=hasanboy.azizjonovich@gmail.com" class="footer-link" target="_blank" rel="noopener noreferrer">Email</a>
+      <a href="https://app.netlify.com/teams/hasanboy-lkppjs4/projects" class="footer-link" target="_blank" rel="noopener noreferrer">Netlify</a>
+    </div>
+    <p class="footer-text">&copy; 2026 Hasanboy_dev. Barcha huquqlar himoyalangan.</p>
+  </div>
+</footer>
+
+</body>
+</html>
