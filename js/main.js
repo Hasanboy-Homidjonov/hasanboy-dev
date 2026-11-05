@@ -200,7 +200,7 @@ document.addEventListener('DOMContentLoaded', () => {
         email: ADMIN_EMAIL,
         name: 'Hasanboy',
         role: 'admin',
-        picture: 'images/Icon.jpg'
+        picture: 'images/icon.jpg'
       };
       localStorage.setItem(AUTH_STORAGE_KEY, JSON.stringify(defaultProfile));
       return defaultProfile;
@@ -275,7 +275,7 @@ document.addEventListener('DOMContentLoaded', () => {
         email: ADMIN_EMAIL,
         name: 'Hasanboy',
         role: 'admin',
-        picture: 'images/Icon.jpg',
+        picture: 'images/icon.jpg',
         loginAt: new Date().toISOString()
       });
 
@@ -298,7 +298,7 @@ document.addEventListener('DOMContentLoaded', () => {
           email: ADMIN_EMAIL,
           name: 'Hasanboy',
           role: 'admin',
-          picture: 'images/Icon.jpg',
+          picture: 'images/icon.jpg',
           loginAt: new Date().toISOString()
         });
         closeAuthModal();
@@ -971,7 +971,7 @@ document.addEventListener('DOMContentLoaded', () => {
               Mening to'liq ma'lumotlarim, tajribam va aloqa vositalarim jamlangan rezyumeni PDF formatida yuklab olishingiz mumkin:
             </p>
             <div class="modal-inline-cv">
-              <a href="Hasanboy.pdf" download class="btn btn-cv" target="_blank">
+              <a href="hasanboy.pdf" download class="btn btn-cv" target="_blank">
                 <span class="btn-cv-icon">
                   <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
                     <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
@@ -981,7 +981,7 @@ document.addEventListener('DOMContentLoaded', () => {
                   </svg>
                 </span>
                 <span class="btn-cv-content">
-                  <span class="btn-cv-title">Hasanboy.pdf yuklab olish</span>
+                  <span class="btn-cv-title">hasanboy.pdf yuklab olish</span>
                   <span class="btn-cv-tag">PDF • To'liq Rezyume</span>
                 </span>
               </a>
