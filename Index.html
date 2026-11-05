@@ -3,20 +3,21 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Hasanboy_dev | Frontend & Bot Developer</title>
-<link rel="icon" type="jpg" href="images/Icon.jpg">
-<meta name="description" content="Hasanboy_dev — frontend veb-sahifalar va Python asosidagi Telegram botlar yarataman.">
+<title>Hasanboy_dev | Full-Stack & Bot Developer</title>
+<link rel="icon" type="image/jpeg" href="images/Icon.jpg">
+<meta name="description" content="Hasanboy_dev — Full-Stack veb-platformalar, JavaScript va Python asosidagi Telegram botlar ishlab chiquvchisi.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/style.css">
+<script src="https://accounts.google.com/gsi/client" async defer></script>
 </head>
 <body>
 
-<header class="site-header">
+<header class="site-header" id="siteHeader">
   <div class="container header-inner">
     <a href="#about" class="logo"><span class="logo-tag">
-        <img src="images/Icon.jpg" alt="Rasm bor" height="15px">
+        <img src="images/Icon.jpg" alt="Logo" class="nav-logo-img">
         &lt;hasanboy_dev /&gt;</span></a>
     <nav class="site-nav">
       <a href="#about">Men haqimda</a>
@@ -24,9 +25,79 @@
       <a href="#services">Qila oladigan ishlarim</a>
       <a href="#projects">Loyihalarim</a>
     </nav>
-    <a href="https://t.me/KhomidjonovH" class="nav-cta" target="_blank" rel="noopener noreferrer">Bog'lanish</a>
+    <div class="header-right-actions">
+      <a href="https://t.me/KhomidjonovH" class="nav-cta" target="_blank" rel="noopener noreferrer">
+        <span class="nav-cta-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 00-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.74-.55 2.92-1.27 4.86-2.11 5.83-2.51 2.78-1.16 3.35-1.36 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .38z"/>
+          </svg>
+        </span>
+        <span class="nav-cta-content">
+          <span class="nav-cta-title">Bog'lanish</span>
+          <span class="nav-cta-tag">Telegram • Online</span>
+        </span>
+        <span class="nav-cta-glow"></span>
+      </a>
+      <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Menyuni ochish" aria-expanded="false">
+        <span class="hamburger-icon">
+          <span class="bar bar-1"></span>
+          <span class="bar bar-2"></span>
+          <span class="bar bar-3"></span>
+        </span>
+      </button>
+    </div>
   </div>
 </header>
+
+<!-- Mobil Navigatsiya Drawer & Shaffof Overlay -->
+<div class="mobile-nav-overlay" id="mobileNavOverlay"></div>
+<aside class="mobile-nav-drawer" id="mobileNavDrawer" aria-hidden="true">
+  <div class="mobile-drawer-header">
+    <a href="#about" class="logo mobile-drawer-logo" title="Bosh sahifaga o'tish">
+      <span class="logo-tag">
+        <img src="images/Icon.jpg" alt="Logo" class="nav-logo-img">
+        &lt;hasanboy_dev /&gt;
+      </span>
+    </a>
+    <button class="mobile-drawer-close" id="mobileDrawerClose" aria-label="Menyuni yopish">&times;</button>
+  </div>
+  <nav class="mobile-drawer-links">
+    <a href="#about" class="mobile-nav-link">
+      <span class="link-icon">👤</span>
+      <span>Men haqimda</span>
+    </a>
+    <a href="#achievements" class="mobile-nav-link">
+      <span class="link-icon">📊</span>
+      <span>Yutuqlarim</span>
+    </a>
+    <a href="#services" class="mobile-nav-link">
+      <span class="link-icon">🛠️</span>
+      <span>Qila oladigan ishlarim</span>
+    </a>
+    <a href="#projects" class="mobile-nav-link">
+      <span class="link-icon">🚀</span>
+      <span>Loyihalarim</span>
+    </a>
+  </nav>
+  <div class="mobile-drawer-actions">
+    <a href="https://t.me/KhomidjonovH" class="btn-cv btn-tg-drawer" target="_blank" rel="noopener noreferrer">
+      <span class="btn-cv-icon btn-tg-icon">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 00-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.74-.55 2.92-1.27 4.86-2.11 5.83-2.51 2.78-1.16 3.35-1.36 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .38z"/>
+        </svg>
+      </span>
+      <span class="btn-cv-content">
+        <span class="btn-cv-title">Bog'lanish</span>
+        <span class="btn-cv-tag">Telegram • Online</span>
+      </span>
+      <span class="btn-cv-glow"></span>
+    </a>
+    <a href="Hasanboy.pdf" download class="btn btn-cv-drawer" target="_blank">
+      <span class="drawer-cv-icon">📄</span>
+      <span>CV yuklab olish (PDF)</span>
+    </a>
+  </div>
+</aside>
 
 <main>
 
@@ -34,40 +105,89 @@
   <section id="about" class="section hero">
     <div class="container hero-inner">
       <div class="hero-copy">
-        <p class="hero-kicker">Frontend &amp; Python Developer</p>
-        <h1 class="hero-title">Men haqimda</h1>
-        <p class="hero-desc">
-          Men Hasanboy — 3 yildan beri frontend yo'nalishida muntazam o'rganib, amaliyot qilib kelaman:
-          HTML, CSS va JavaScript yordamida toza va tez ishlaydigan interfeyslar quraman.
-          Shu bilan birga Python tilida 10 dan ortiq Telegram bot yaratganman — musiqa saqlash, guruh
-          boshqaruvi, moderatsiya va referal tizimlari kabi yo'nalishlarda. Ma'lumotlarni saqlash va
-          boshqarish uchun MySQL bazalaridan foydalanaman, shuning uchun har bir loyiham nafaqat
-          ko'rinishga, balki tuzilishga ham asoslangan.
-        </p>
+        <div class="hero-status-pill">
+          <span class="status-dot"></span> Yangi loyihalar uchun ochiq
+        </div>
+        <p class="hero-kicker">Full-Stack &amp; Python Developer</p>
+        <h1 class="hero-title">Salom, men <span class="text-gradient">Hasanboy</span></h1>
+        <div class="hero-desc-box">
+          <p class="hero-desc" id="heroDescText">
+            Full-Stack veb-platformalar va murakkab Telegram botlar ishlab chiquvchisi. 3 yillik mustahkam amaliy tajriba bilan biznes va ta'lim sohalari uchun toza, tezkor va yuqori darajadagi raqamli yechimlar yarataman.
+          </p>
+          <button type="button" class="btn-more-trigger" id="openAboutModalBtn" aria-label="Men haqimda to'liq ma'lumotni ochish">
+            <span class="more-label">Men haqimda batafsil</span>
+            <span class="more-arrow">→</span>
+          </button>
+        </div>
+
+        <div class="hero-education-strip">
+          <div class="edu-pill edu-tatu">
+            <span class="edu-badge-icon">🎓</span>
+            <div class="edu-pill-text">
+              <strong>TATU Farg'ona filiali</strong>
+              <small>Axborot texnologiyalari</small>
+            </div>
+            <span class="edu-pill-glow"></span>
+          </div>
+          <div class="edu-pill edu-najot">
+            <span class="edu-badge-icon">⚡</span>
+            <div class="edu-pill-text">
+              <strong>Najot Ta'lim</strong>
+              <small>Full-Stack &amp; IT Ta'lim</small>
+            </div>
+            <span class="edu-pill-glow"></span>
+          </div>
+          <div class="edu-pill edu-cambridge">
+            <span class="edu-badge-icon">🇬🇧</span>
+            <div class="edu-pill-text">
+              <strong>Cambridge</strong>
+              <small>English</small>
+            </div>
+            <span class="edu-pill-glow"></span>
+          </div>
+        </div>
+
         <div class="hero-actions">
           <a href="#projects" class="btn btn-primary">Loyihalarni ko'rish</a>
+          <a href="Hasanboy.pdf" download class="btn btn-cv" target="_blank">
+            <span class="btn-cv-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                <polyline points="14 2 14 8 20 8"/>
+                <line x1="12" y1="18" x2="12" y2="12"/>
+                <polyline points="9 15 12 18 15 15"/>
+              </svg>
+            </span>
+            <span class="btn-cv-content">
+              <span class="btn-cv-title">CV yuklab olish</span>
+              <span class="btn-cv-tag">PDF • Rezyume</span>
+            </span>
+            <span class="btn-cv-glow"></span>
+          </a>
           <a href="#services" class="btn btn-ghost">Nima qila olaman</a>
         </div>
       </div>
 
-      <div class="code-panel">
-        <div class="code-panel-head">
-          <span class="dot dot-red"></span>
-          <span class="dot dot-yellow"></span>
-          <span class="dot dot-green"></span>
-          <span class="code-panel-name">bot_handler.py</span>
+      <div class="hero-image-wrapper">
+        <div class="hero-image-card">
+          <div class="hero-img-container">
+            <img src="images/man.jpg" alt="Hasanboy - Full-Stack & Bot Developer" class="hero-avatar">
+          </div>
+          <div class="hero-floating-badge badge-top-right">
+            <span class="badge-icon">⚡</span>
+            <div class="badge-text">
+              <span class="badge-title">Python &amp; Bot</span>
+              <span class="badge-sub">Aiogram • MySQL</span>
+            </div>
+          </div>
+          <div class="hero-floating-badge badge-bottom-left">
+            <span class="badge-icon">💻</span>
+            <div class="badge-text">
+              <span class="badge-title">Full-Stack Dev</span>
+              <span class="badge-sub">HTML • CSS • JavaScript</span>
+            </div>
+          </div>
         </div>
-        <pre class="code-panel-body"><code><span class="tok-kw">from</span> aiogram <span class="tok-kw">import</span> Bot, Dispatcher, types
-
-bot = Bot(token=TOKEN)
-dp = Dispatcher()
-
-<span class="tok-fn">@dp.message()</span>
-<span class="tok-kw">async def</span> <span class="tok-fn">save_track</span>(message: types.Message):
-    <span class="tok-com"># Musiqani bazaga saqlash</span>
-    track = <span class="tok-kw">await</span> extract_audio(message)
-    <span class="tok-kw">await</span> db.tracks.insert(track)
-    <span class="tok-kw">await</span> message.reply(<span class="tok-str">"✅ Qo'shiq saqlandi!"</span>)</code></pre>
       </div>
     </div>
   </section>
@@ -75,30 +195,62 @@ dp = Dispatcher()
   <!-- SECTION 2: YUTUQLARIM -->
   <section id="achievements" class="section achievements">
     <div class="container">
-      <div class="section-head">
-        <h2 class="section-title">Yutuqlarim</h2>
-        <p class="section-subtitle">Yillar davomida to'plangan tajriba va real natijalar.</p>
-      </div>
-      <div class="milestone-grid">
-        <div class="milestone-card">
-          <span class="milestone-number">3+</span>
-          <h3 class="milestone-label">Yillik tajriba</h3>
-          <p class="milestone-desc">Frontend yo'nalishida muntazam mashq va real loyihalar ustida ishlash.</p>
+      <div class="section-head-split">
+        <div class="section-head-copy">
+          <span class="section-tag-pill tag-blue">📊 Natijalar &amp; Statistika</span>
+          <h2 class="section-title">Yutuqlarim va Ko'rsatkichlar</h2>
+          <p class="section-subtitle">Real loyihalarda to'plangan Full-Stack amaliyot va o'lchanadigan natijalar.</p>
         </div>
-        <div class="milestone-card">
+        <div class="section-head-meta">
+          <div class="meta-stat-pill">
+            <span class="meta-stat-icon">⚡</span>
+            <div class="meta-stat-text">
+              <strong>100% Real Loyihalar</strong>
+              <small>Faol botlar va platformalar</small>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="milestone-grid">
+        <div class="milestone-card milestone-blue">
+          <div class="milestone-card-top">
+            <span class="milestone-icon">💻</span>
+            <span class="milestone-badge-pill">Full-Stack</span>
+          </div>
+          <span class="milestone-number">3+</span>
+          <h3 class="milestone-label">Full-Stack &amp; JS</h3>
+          <p class="milestone-desc">HTML, CSS, JavaScript, Python va MySQL bo'yicha mustahkam amaliy tajriba.</p>
+        </div>
+
+        <div class="milestone-card milestone-green">
+          <div class="milestone-card-top">
+            <span class="milestone-icon">🤖</span>
+            <span class="milestone-badge-pill">Telegram API</span>
+          </div>
           <span class="milestone-number">10+</span>
           <h3 class="milestone-label">Telegram bot</h3>
-          <p class="milestone-desc">Foydalanuvchilar tomonidan real ishlatilayotgan botlar yaratilgan.</p>
+          <p class="milestone-desc">Foydalanuvchilar tomonidan real ishlatilayotgan botlar va AI integratsiyalari.</p>
         </div>
-        <div class="milestone-card">
+
+        <div class="milestone-card milestone-purple">
+          <div class="milestone-card-top">
+            <span class="milestone-icon">🗄️</span>
+            <span class="milestone-badge-pill">Baza Arxitekturasi</span>
+          </div>
           <span class="milestone-number">MySQL</span>
           <h3 class="milestone-label">Ma'lumotlar bazasi</h3>
-          <p class="milestone-desc">Bazalarni loyihalash va boshqarish bo'yicha amaliy tajriba.</p>
+          <p class="milestone-desc">Bazalarni loyihalash, ma'lumotlar arxitekturasi va so'rovlarni boshqarish.</p>
         </div>
-        <div class="milestone-card">
-          <span class="milestone-number">7+</span>
+
+        <div class="milestone-card milestone-amber">
+          <div class="milestone-card-top">
+            <span class="milestone-icon">🌐</span>
+            <span class="milestone-badge-pill">Live Apps</span>
+          </div>
+          <span class="milestone-number">10+</span>
           <h3 class="milestone-label">Jonli loyiha</h3>
-          <p class="milestone-desc">Netlify va Telegram orqali ommaga taqdim etilgan ishlaydigan namunalar.</p>
+          <p class="milestone-desc">Base44 SaaS, Netlify veb-saytlar va Telegram platformalar.</p>
         </div>
       </div>
     </div>
@@ -107,36 +259,63 @@ dp = Dispatcher()
   <!-- SECTION 3: QILA OLADIGAN ISHLARIM -->
   <section id="services" class="section services">
     <div class="container">
-      <div class="section-head">
-        <h2 class="section-title">Qila oladigan ishlarim</h2>
-        <p class="section-subtitle">Ko'rinadigan interfeysdan tortib, uni harakatga keltiruvchi mantiqgacha.</p>
+      <div class="section-head-split">
+        <div class="section-head-copy">
+          <span class="section-tag-pill tag-green">🛠️ Xizmatlar &amp; Imkoniyatlar</span>
+          <h2 class="section-title">Qila oladigan ishlarim</h2>
+          <p class="section-subtitle">Ko'rinadigan interfeysdan tortib, uni harakatga keltiruvchi server mantiqigacha.</p>
+        </div>
+        <div class="section-head-meta">
+          <div class="meta-stat-pill">
+            <span class="meta-stat-icon">🎯</span>
+            <div class="meta-stat-text">
+              <strong>End-to-End Development</strong>
+              <small>G'oyadan to tayyor loyihagacha</small>
+            </div>
+          </div>
+        </div>
       </div>
+
       <div class="services-grid">
-        <div class="service-card">
-          <h3 class="service-title">Frontend UI</h3>
-          <p class="service-desc">Toza, tez yuklanadigan va har qanday ekranda to'g'ri ko'rinadigan interfeyslar.</p>
+        <div class="service-card service-blue">
+          <div class="service-card-top">
+            <span class="service-icon-box">💻</span>
+            <span class="badge-type badge-web">Frontend &amp; UI</span>
+          </div>
+          <h3 class="service-title">Full-Stack Web UI</h3>
+          <p class="service-desc">Toza, tez yuklanadigan va har qanday ekranda to'g'ri ko'rinadigan to'liq veb-platformalar.</p>
           <ul class="service-list">
-            <li>HTML5, CSS3, JavaScript</li>
-            <li>Responsive va adaptiv dizayn</li>
-            <li>UI animatsiyalar</li>
+            <li>JavaScript (ES6+), HTML5, CSS3</li>
+            <li>Responsive va adaptiv platformalar</li>
+            <li>Base44, React &amp; interaktiv ilovalar</li>
           </ul>
         </div>
-        <div class="service-card">
+
+        <div class="service-card service-green">
+          <div class="service-card-top">
+            <span class="service-icon-box">⚡</span>
+            <span class="badge-type badge-bot">Python &amp; Bot</span>
+          </div>
           <h3 class="service-title">Bot avtomatizatsiyasi</h3>
-          <p class="service-desc">Telegram botlari orqali kundalik va guruh jarayonlarini avtomatlashtirish.</p>
+          <p class="service-desc">Telegram botlari orqali kundalik va biznes jarayonlarini avtomatlashtirish.</p>
           <ul class="service-list">
             <li>Python, Aiogram</li>
             <li>Guruh boshqaruvi va moderatsiya</li>
-            <li>Referal va statistik tizimlar</li>
+            <li>Referal, Gemini AI va webhook tizimlari</li>
           </ul>
         </div>
-        <div class="service-card">
-          <h3 class="service-title">SQL bazalari</h3>
-          <p class="service-desc">Ma'lumotlarni to'g'ri saqlaydigan va tez ishlaydigan baza tuzilmalari.</p>
+
+        <div class="service-card service-purple">
+          <div class="service-card-top">
+            <span class="service-icon-box">🗄️</span>
+            <span class="badge-type badge-purple">Database</span>
+          </div>
+          <h3 class="service-title">SQL &amp; Backend</h3>
+          <p class="service-desc">Ma'lumotlarni to'g'ri saqlaydigan va tez ishlaydigan backend tuzilmalari.</p>
           <ul class="service-list">
             <li>MySQL loyihalash</li>
             <li>Ma'lumotlar modellashtirish</li>
-            <li>So'rovlarni optimallashtirish</li>
+            <li>REST API va server integratsiyalari</li>
           </ul>
         </div>
       </div>
@@ -146,19 +325,201 @@ dp = Dispatcher()
   <!-- SECTION 4: LOYIHALARIM VA NAMUNALAR -->
   <section id="projects" class="section projects">
     <div class="container">
-      <div class="section-head">
-        <h2 class="section-title">Loyihalarim va Namunalar</h2>
-        <p class="section-subtitle">Frontend va Python yordamida yaratilgan real veb-saytlar va Telegram botlar.</p>
+      <div class="section-head-split">
+        <div class="section-head-copy">
+          <span class="section-tag-pill tag-purple">🚀 Portfolio &amp; Namunalar</span>
+          <h2 class="section-title">Loyihalarim va Namunalar</h2>
+          <p class="section-subtitle">Full-Stack, JavaScript, Base44 va Python yordamida yaratilgan real veb-platformalar va Telegram botlar.</p>
+        </div>
       </div>
 
-      <div class="project-grid">
+      <!-- BOSHQARUV PANELI (Faqat hasanboy.azizjonovich@gmail.com hisobida faol) -->
+      <div class="admin-toolbar" id="adminToolbar" style="display: none;">
+        <div class="admin-toolbar-inner">
+          <div class="admin-toolbar-left">
+            <span class="admin-pulse-badge"></span>
+            <div class="admin-account-meta">
+              <span class="admin-tag-label">Loyiha Boshqaruvi</span>
+              <span class="admin-email-label">hasanboy.azizjonovich@gmail.com</span>
+            </div>
+          </div>
+          <div class="admin-toolbar-right">
+            <button type="button" class="btn btn-add-project-modal" id="openAddProjectModalBtn">
+              <span>＋</span>
+              <span>Yangi Loyiha Qo'shish</span>
+            </button>
+            <button type="button" class="btn btn-trash-toggle" id="openTrashModalBtn" title="O'chirilgan loyihalar arxivi">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="3 6 5 6 21 6"></polyline>
+                <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+              </svg>
+              <span>O'chirilganlar</span>
+              <span class="trash-badge-count" id="trashBadgeCount">0</span>
+            </button>
+          </div>
+        </div>
+      </div>
 
-        <article class="project-card">
+      <div class="project-grid" id="projectGrid">
+
+        <!-- PROJECT: Pre-Intermediate Test Only (Render) -->
+        <article class="project-card" data-project-id="pre-intermediate-test-only">
+          <div class="project-card-top">
+            <span class="badge-type badge-web">English &amp; Test Platform</span>
+          </div>
+          <h3 class="project-title">Pre-Intermediate Test Only — Ingliz Tili Sinov Platformasi</h3>
+          <p class="project-desc">
+            <span class="desc-text">Pre-Intermediate darajasidagi ingliz tili o'rganuvchilari uchun maxsus onlayn test sinovi platformasi. Grammatika, leksika va interaktiv savollar orqali bilim darajasini avtomatik aniqlovchi qulay tizim.</span>
+            <button type="button" class="btn-card-more" aria-label="Batafsil ma'lumot">... batafsil</button>
+          </p>
+          <div class="tech-tags">
+            <span class="tech-tag">Render</span>
+            <span class="tech-tag">English Test</span>
+            <span class="tech-tag">Interactive Quiz</span>
+            <span class="tech-tag">EdTech</span>
+          </div>
+          <a href="https://pre-intermediate-test-only.onrender.com" class="project-link" target="_blank" rel="noopener noreferrer">
+            Platformani ko'rish <span aria-hidden="true">↗</span>
+          </a>
+        </article>
+
+        <!-- PROJECT: Pre-Intermediate Learning Hub (Render) -->
+        <article class="project-card" data-project-id="pre-intermedate-vu0r">
+          <div class="project-card-top">
+            <span class="badge-type badge-web">English Learning Platform</span>
+          </div>
+          <h3 class="project-title">Pre-Intermediate Learning &amp; Test Hub — O'quv Platformasi</h3>
+          <p class="project-desc">
+            <span class="desc-text">Ingliz tili Pre-Intermediate bosqichi talabalari uchun yaratilgan keng qamrovli interaktiv ta'lim tizimi. Bo'limlar bo'yicha amaliy mashg'ulotlar, grammatik testlar va o'quv natijalari tahlili.</span>
+            <button type="button" class="btn-card-more" aria-label="Batafsil ma'lumot">... batafsil</button>
+          </p>
+          <div class="tech-tags">
+            <span class="tech-tag">Render</span>
+            <span class="tech-tag">English Learning</span>
+            <span class="tech-tag">Full-Stack</span>
+            <span class="tech-tag">Web App</span>
+          </div>
+          <a href="https://pre-intermedate-vu0r.onrender.com" class="project-link" target="_blank" rel="noopener noreferrer">
+            Platformani ko'rish <span aria-hidden="true">↗</span>
+          </a>
+        </article>
+
+        <!-- PROJECT: Master Writing (Base44) -->
+        <article class="project-card" data-project-id="master-writing">
+          <div class="project-card-top">
+            <span class="badge-type badge-web">English &amp; Writing Platform</span>
+          </div>
+          <h3 class="project-title">Master Writing — Ingliz Tili Writing &amp; Essay Platformasi</h3>
+          <p class="project-desc">
+            <span class="desc-text">Ingliz tili o'rganuvchilar uchun insholar (essay) va akademik yozish ko'nikmalarini rivojlantiruvchi interaktiv Base44 platformasi. Fikrlarni ingliz tilida erkin va to'g'ri bayon qilish tizimi.</span>
+            <button type="button" class="btn-card-more" aria-label="Batafsil ma'lumot">... batafsil</button>
+          </p>
+          <div class="tech-tags">
+            <span class="tech-tag">Base44</span>
+            <span class="tech-tag">English Learning</span>
+            <span class="tech-tag">Writing &amp; Essay</span>
+            <span class="tech-tag">EdTech</span>
+          </div>
+          <a href="https://sceptical-write-master-path.base44.app" class="project-link" target="_blank" rel="noopener noreferrer">
+            Platformani ko'rish <span aria-hidden="true">↗</span>
+          </a>
+        </article>
+
+        <!-- PROJECT: English Grammar Mastery (Base44) -->
+        <article class="project-card" data-project-id="grammar-mastery">
+          <div class="project-card-top">
+            <span class="badge-type badge-web">English &amp; Grammar Quiz</span>
+          </div>
+          <h3 class="project-title">English Grammar Mastery — Interaktiv Grammatika Quiz</h3>
+          <p class="project-desc">
+            <span class="desc-text">Ingliz tili grammatikasini o'rganuvchilar uchun 3 xil qiyinlik darajasidagi (Oson, O'rta, Murakkab) 30 ta interaktiv test, so'zlar ustiga borganda tarjima ko'rsatish (hover-to-translate) va tezkor tahlil platformasi.</span>
+            <button type="button" class="btn-card-more" aria-label="Batafsil ma'lumot">... batafsil</button>
+          </p>
+          <div class="tech-tags">
+            <span class="tech-tag">Base44</span>
+            <span class="tech-tag">English Grammar</span>
+            <span class="tech-tag">Hover Translate</span>
+            <span class="tech-tag">Interactive Quiz</span>
+          </div>
+          <a href="https://grammar-mastery-flow.base44.app" class="project-link" target="_blank" rel="noopener noreferrer">
+            Platformani ko'rish <span aria-hidden="true">↗</span>
+          </a>
+        </article>
+
+        <!-- PROJECT: SmartHR (Base44 + AI) -->
+        <article class="project-card" data-project-id="smarthr-ai">
+          <div class="project-card-top">
+            <span class="badge-type badge-web">AI &amp; SaaS Platform</span>
+          </div>
+          <h3 class="project-title">SmartHR — AI Recruitment Platform</h3>
+          <p class="project-desc">
+            <span class="desc-text">Telegram bot va Gemini AI integratsiyasiga ega avtomatlashtirilgan kadrlar tanlash tizimi. Korrupsiyaga qarshi avtomatik saralash, anonim baholash rejimi va interaktiv suhbat rejalashtirish dashboardi.</span>
+            <button type="button" class="btn-card-more" aria-label="Batafsil ma'lumot">... batafsil</button>
+          </p>
+          <div class="tech-tags">
+            <span class="tech-tag">Base44</span>
+            <span class="tech-tag">Gemini AI</span>
+            <span class="tech-tag">Telegram Bot API</span>
+            <span class="tech-tag">Webhook</span>
+          </div>
+          <a href="https://festive-smart-hire-flow.base44.app" class="project-link" target="_blank" rel="noopener noreferrer">
+            Platformani ko'rish <span aria-hidden="true">↗</span>
+          </a>
+        </article>
+
+        <!-- PROJECT: JavaScript Algorithm & Practice Repo -->
+        <article class="project-card" data-project-id="js-algorithms">
+          <div class="project-card-top">
+            <span class="badge-type badge-web">JavaScript Lab</span>
+          </div>
+          <h3 class="project-title">JavaScript Amaliy Masalalar &amp; Algoritmlar Hubi</h3>
+          <p class="project-desc">
+            <span class="desc-text">JavaScript-da massivlar (Array), satrlar (String) va ma'lumotlar bilan ishlash bo'yicha real amaliy misollar, algoritmik masalalar va toza kod yechimlaridan iborat interaktiv to'plam.</span>
+            <button type="button" class="btn-card-more" aria-label="Batafsil ma'lumot">... batafsil</button>
+          </p>
+          <div class="tech-tags">
+            <span class="tech-tag">JavaScript</span>
+            <span class="tech-tag">Array &amp; String</span>
+            <span class="tech-tag">Amaliy Masalalar</span>
+            <span class="tech-tag">Algoritmlar</span>
+            <span class="tech-tag">GitHub</span>
+          </div>
+          <a href="https://github.com/Hasanboy-Homidjonov/JS_Array_String.git" class="project-link" target="_blank" rel="noopener noreferrer">
+            GitHub Repositoriyani ko'rish <span aria-hidden="true">↗</span>
+          </a>
+        </article>
+
+        <!-- PROJECT: SmartHR Recruitment Bot -->
+        <article class="project-card" data-project-id="smarthr-bot">
+          <div class="project-card-top">
+            <span class="badge-type badge-bot">Telegram Bot</span>
+          </div>
+          <h3 class="project-title">SmartHR Recruitment Bot</h3>
+          <p class="project-desc">
+            <span class="desc-text">Nomzodlardan rezyume va test ma'lumotlarini qabul qilib, ularni Base44 AI tizimiga uzatuvchi ko'p tilli (UZ / RU / EN) rekruting boti. Nomzodning shaxsiy chatiga interaktiv xabarlar, natijalar va emojili reaksiyalar (🎉 / 😢) yuboradi.</span>
+            <button type="button" class="btn-card-more" aria-label="Batafsil ma'lumot">... batafsil</button>
+          </p>
+          <div class="tech-tags">
+            <span class="tech-tag">Telegram Bot API</span>
+            <span class="tech-tag">Webhook</span>
+            <span class="tech-tag">Automation</span>
+            <span class="tech-tag">i18n</span>
+          </div>
+          <a href="https://t.me/smarthr_recruiting_bot" class="project-link" target="_blank" rel="noopener noreferrer">
+            Botni ochish <span aria-hidden="true">↗</span>
+          </a>
+        </article>
+
+        <!-- PROJECT: Interactive Web Platform -->
+        <article class="project-card" data-project-id="interactive-web">
           <div class="project-card-top">
             <span class="badge-type badge-web">Veb Loyiha</span>
           </div>
           <h3 class="project-title">Interactive Web Platform</h3>
-          <p class="project-desc">Foydalanuvchi bilan interaktiv aloqada bo'ladigan zamonaviy frontend veb-platforma.</p>
+          <p class="project-desc">
+            <span class="desc-text">Foydalanuvchi bilan interaktiv aloqada bo'ladigan zamonaviy frontend veb-platforma. Moslashuvchan va toza arxitektura.</span>
+            <button type="button" class="btn-card-more" aria-label="Batafsil ma'lumot">... batafsil</button>
+          </p>
           <div class="tech-tags">
             <span class="tech-tag">HTML5</span>
             <span class="tech-tag">CSS3</span>
@@ -169,12 +530,16 @@ dp = Dispatcher()
           </a>
         </article>
 
-        <article class="project-card">
+        <!-- PROJECT: Modern Animated Interface -->
+        <article class="project-card" data-project-id="animated-interface">
           <div class="project-card-top">
             <span class="badge-type badge-web">Veb Loyiha</span>
           </div>
           <h3 class="project-title">Modern Animated Interface</h3>
-          <p class="project-desc">Chiroyli animatsiyalar va zamonaviy UI/UX standartlari asosida yaratilgan interfeys.</p>
+          <p class="project-desc">
+            <span class="desc-text">Chiroyli animatsiyalar va zamonaviy UI/UX standartlari asosida yaratilgan interfeys. Barcha qurilmalarga to'liq moslashgan.</span>
+            <button type="button" class="btn-card-more" aria-label="Batafsil ma'lumot">... batafsil</button>
+          </p>
           <div class="tech-tags">
             <span class="tech-tag">Responsive Web</span>
             <span class="tech-tag">CSS Animation</span>
@@ -184,12 +549,16 @@ dp = Dispatcher()
           </a>
         </article>
 
-        <article class="project-card">
+        <!-- PROJECT: Qo'shiqlar Saqlovchi Bot -->
+        <article class="project-card" data-project-id="qoshiqlar-bot">
           <div class="project-card-top">
             <span class="badge-type badge-bot">Telegram Bot</span>
           </div>
           <h3 class="project-title">Qo'shiqlar Saqlovchi Bot</h3>
-          <p class="project-desc">Sevimli musiqalarni qidirish, yuklab olish va saqlash uchun mo'ljallangan avtomatlashtirilgan bot.</p>
+          <p class="project-desc">
+            <span class="desc-text">Sevimli musiqalarni tezkor qidirish, yuklab olish va shaxsiy arxivga saqlash uchun mo'ljallangan avtomatlashtirilgan bot.</span>
+            <button type="button" class="btn-card-more" aria-label="Batafsil ma'lumot">... batafsil</button>
+          </p>
           <div class="tech-tags">
             <span class="tech-tag">Python</span>
             <span class="tech-tag">Telegram API</span>
@@ -199,12 +568,16 @@ dp = Dispatcher()
           </a>
         </article>
 
-        <article class="project-card">
+        <!-- PROJECT: Nazoratchilar Boti -->
+        <article class="project-card" data-project-id="nazoratchilar-bot">
           <div class="project-card-top">
             <span class="badge-type badge-bot">Telegram Bot</span>
           </div>
           <h3 class="project-title">Nazoratchilar Boti</h3>
-          <p class="project-desc">Guruhlar tartibini nazorat qiluvchi, havolalar va taqiqlangan so'zlarni filtrlovchi bot.</p>
+          <p class="project-desc">
+            <span class="desc-text">Telegram guruhlar tartibini nazorat qiluvchi, havolalar, spam va taqiqlangan so'zlarni filtrlovchi intellektual bot.</span>
+            <button type="button" class="btn-card-more" aria-label="Batafsil ma'lumot">... batafsil</button>
+          </p>
           <div class="tech-tags">
             <span class="tech-tag">Python</span>
             <span class="tech-tag">Moderation Bot</span>
@@ -214,12 +587,16 @@ dp = Dispatcher()
           </a>
         </article>
 
-        <article class="project-card">
+        <!-- PROJECT: Referal Boti -->
+        <article class="project-card" data-project-id="referal-bot">
           <div class="project-card-top">
             <span class="badge-type badge-bot">Telegram Bot</span>
           </div>
           <h3 class="project-title">Referal Boti</h3>
-          <p class="project-desc">Shaxsiy referal havolalar orqali taklif qilingan a'zolar hisobini yurituvchi va ball/statistika hisoblovchi avtomatlashtirilgan bot.</p>
+          <p class="project-desc">
+            <span class="desc-text">Shaxsiy referal havolalar orqali taklif qilingan a'zolar hisobini yurituvchi va ball/statistika hisoblovchi avtomatlashtirilgan bot.</span>
+            <button type="button" class="btn-card-more" aria-label="Batafsil ma'lumot">... batafsil</button>
+          </p>
           <div class="tech-tags">
             <span class="tech-tag">Python</span>
             <span class="tech-tag">Group Management</span>
@@ -229,12 +606,16 @@ dp = Dispatcher()
           </a>
         </article>
 
-        <article class="project-card">
+        <!-- PROJECT: E-Kutubxona Boti -->
+        <article class="project-card" data-project-id="ekutubxona-bot">
           <div class="project-card-top">
             <span class="badge-type badge-bot">Telegram Bot</span>
           </div>
           <h3 class="project-title">E-Kutubxona Boti</h3>
-          <p class="project-desc">Foydalanuvchilarga elektron kitoblar katalogini taqdim etuvchi interaktiv kutubxona boti.</p>
+          <p class="project-desc">
+            <span class="desc-text">Foydalanuvchilarga elektron kitoblar katalogini taqdim etuvchi, qulay qidiruv va yuklab olish imkoniyatiga ega interaktiv kutubxona boti.</span>
+            <button type="button" class="btn-card-more" aria-label="Batafsil ma'lumot">... batafsil</button>
+          </p>
           <div class="tech-tags">
             <span class="tech-tag">Python</span>
             <span class="tech-tag">Database</span>
@@ -252,17 +633,357 @@ dp = Dispatcher()
 </main>
 
 <footer class="site-footer">
-  <div class="container footer-inner">
-    <span class="logo-tag footer-logo">&lt;hasanboy_dev /&gt;</span>
-    <div class="footer-links">
-      <a href="https://t.me/KhomidjonovH" class="footer-link" target="_blank" rel="noopener noreferrer">Telegram</a>
-      <a href="https://github.com/Hasanboy-Homidjonov" class="footer-link" target="_blank" rel="noopener noreferrer">GitHub</a>
-      <a href="https://mail.google.com/mail/?view=cm&fs=1&to=hasanboy.azizjonovich@gmail.com" class="footer-link" target="_blank" rel="noopener noreferrer">Email</a>
-      <a href="https://app.netlify.com/teams/hasanboy-lkppjs4/projects" class="footer-link" target="_blank" rel="noopener noreferrer">Netlify</a>
+  <div class="container footer-content">
+
+    <div class="footer-brand-center">
+      <a href="#about" class="logo footer-logo-link" title="Bosh sahifaga qaytish">
+        <span class="logo-tag footer-logo">
+          <img src="images/Icon.jpg" alt="Logo" class="nav-logo-img">
+          &lt;hasanboy_dev /&gt;
+        </span>
+      </a>
+      <p class="footer-tagline">
+        Full-Stack veb-platformalar va Telegram botlar ishlab chiquvchi • Tel: <a href="tel:+998774597750" class="footer-phone" title="Qo'ng'iroq qilish">+998&nbsp;77&nbsp;459&nbsp;77&nbsp;50</a>
+      </p>
     </div>
-    <p class="footer-text">&copy; 2026 Hasanboy_dev. Barcha huquqlar himoyalangan.</p>
+
+    <div class="footer-social-wrap">
+      <a href="https://t.me/KhomidjonovH" class="footer-link social-tg" target="_blank" rel="noopener noreferrer" aria-label="Telegram">
+        <svg class="social-icon" width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 00-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.74-.55 2.92-1.27 4.86-2.11 5.83-2.51 2.78-1.16 3.35-1.36 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .38z"/>
+        </svg>
+        <span>Telegram</span>
+      </a>
+
+      <a href="https://wa.me/998774597750" class="footer-link social-wa" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp">
+        <svg class="social-icon" width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91C2.13 13.66 2.59 15.36 3.45 16.86L2.05 22L7.3 20.62C8.75 21.41 10.38 21.83 12.04 21.83C17.5 21.83 21.95 17.38 21.95 11.92C21.95 9.27 20.92 6.78 19.05 4.91C17.18 3.03 14.69 2 12.04 2ZM12.05 3.67C14.25 3.67 16.31 4.53 17.87 6.09C19.42 7.65 20.28 9.72 20.28 11.92C20.28 16.46 16.58 20.15 12.04 20.15C10.56 20.15 9.11 19.76 7.85 19.01L7.55 18.83L4.43 19.65L5.26 16.61L5.06 16.29C4.24 14.99 3.8 13.47 3.8 11.91C3.81 7.37 7.5 3.67 12.05 3.67ZM8.53 7.33C8.37 7.33 8.1 7.39 7.87 7.64C7.65 7.89 7.02 8.48 7.02 9.68C7.02 10.88 7.9 12.04 8.02 12.2C8.14 12.37 9.73 14.82 12.16 15.87C12.74 16.12 13.19 16.27 13.55 16.38C14.13 16.57 14.66 16.54 15.08 16.48C15.55 16.41 16.53 15.89 16.73 15.31C16.94 14.74 16.94 14.25 16.88 14.15C16.82 14.05 16.66 13.99 16.42 13.87C16.18 13.75 14.98 13.16 14.76 13.08C14.54 13 14.38 12.96 14.22 13.2C14.06 13.45 13.59 14.01 13.45 14.17C13.31 14.33 13.17 14.35 12.93 14.23C12.69 14.11 11.92 13.86 11 13.04C10.28 12.4 9.8 11.61 9.66 11.37C9.52 11.13 9.65 11 9.77 10.88C9.87 10.78 10 10.63 10.12 10.49C10.24 10.35 10.28 10.25 10.36 10.09C10.44 9.93 10.4 9.79 10.34 9.67C10.28 9.55 9.82 8.41 9.62 7.95C9.44 7.49 9.25 7.56 9.1 7.55C8.96 7.54 8.8 7.54 8.64 7.54L8.53 7.33Z"/>
+        </svg>
+        <span>WhatsApp</span>
+      </a>
+
+      <a href="https://github.com/Hasanboy-Homidjonov" class="footer-link social-gh" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+        <svg class="social-icon" width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/>
+        </svg>
+        <span>GitHub</span>
+      </a>
+
+      <a href="https://mail.google.com/mail/?view=cm&fs=1&to=hasanboy.azizjonovich@gmail.com" class="footer-link social-mail" target="_blank" rel="noopener noreferrer" aria-label="Email">
+        <svg class="social-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect width="20" height="16" x="2" y="4" rx="2"/>
+          <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
+        </svg>
+        <span>Email</span>
+      </a>
+
+      <a href="https://app.netlify.com/teams/hasanboy-lkppjs4/projects" class="footer-link social-netlify" target="_blank" rel="noopener noreferrer" aria-label="Netlify">
+        <svg class="social-icon" width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M12 2L2 12l10 10 10-10L12 2zm0 3.6L18.4 12 12 18.4 5.6 12 12 5.6z"/>
+        </svg>
+        <span>Netlify</span>
+      </a>
+    </div>
+
+    <div class="footer-bottom-bar">
+      <p class="footer-copy">&copy; 2026 Hasanboy Homidjonov. Barcha huquqlar himoyalangan.</p>
+    </div>
+
   </div>
 </footer>
 
+<!-- ================= SHAFFOF GLASSMORPHISM MODAL OYNASI ================= -->
+<div class="glass-modal-overlay" id="glassModalOverlay" aria-hidden="true" role="dialog" aria-modal="true">
+  <!-- Shaffof fonda sokin aylanuvchi nafis ambient rangli orblar -->
+  <div class="modal-ambient-glow" aria-hidden="true">
+    <div class="ambient-orb orb-blue"></div>
+    <div class="ambient-orb orb-green"></div>
+    <div class="ambient-orb orb-purple"></div>
+    <div class="ambient-orb orb-cyan"></div>
+  </div>
+
+  <div class="glass-modal-container">
+    <div class="glass-modal-card" id="glassModalCard">
+      <!-- Modal Header -->
+      <div class="glass-modal-header">
+        <div class="glass-modal-header-info">
+          <div class="modal-avatar-wrap">
+            <img src="images/Icon.jpg" alt="Hasanboy" class="modal-avatar-img">
+            <span class="modal-status-badge"></span>
+          </div>
+          <div class="modal-title-wrap">
+            <h3 class="modal-title" id="modalTitle">Hasanboy Homidjonov</h3>
+            <span class="modal-badge-subtitle" id="modalSubtitle">Full-Stack &amp; Python Developer</span>
+          </div>
+        </div>
+        <button type="button" class="glass-modal-close" id="glassModalCloseBtn" aria-label="Yopish">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+
+      <!-- Modal Scrollable Content -->
+      <div class="glass-modal-body" id="modalBody">
+        <!-- Dinamik kontent JS orqali to'ldiriladi -->
+      </div>
+
+      <!-- Modal Footer -->
+      <div class="glass-modal-footer" id="modalFooter">
+        <a href="https://t.me/KhomidjonovH" class="btn btn-primary modal-action-btn" id="modalPrimaryBtn" target="_blank" rel="noopener noreferrer">
+          <span>Telegram orqali bog'lanish</span> ↗
+        </a>
+        <button type="button" class="btn btn-ghost modal-action-btn" id="modalCloseSecondaryBtn">
+          Yopish
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ================= YUQORIGA QAYTISH TUGMASI ================= -->
+<button type="button" class="scroll-to-top" id="scrollToTopBtn" aria-label="Yuqoriga qaytish">
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+    <polyline points="18 15 12 9 6 15"></polyline>
+  </svg>
+</button>
+
+<!-- ================= GOOGLE AUTH MODAL (ADMIN KIRISH) ================= -->
+<div class="glass-modal-overlay" id="adminAuthModal" aria-hidden="true" role="dialog" aria-modal="true">
+  <div class="modal-ambient-glow" aria-hidden="true">
+    <div class="ambient-orb orb-blue"></div>
+    <div class="ambient-orb orb-green"></div>
+  </div>
+  <div class="glass-modal-container modal-container-sm">
+    <div class="glass-modal-card auth-modal-card">
+      <div class="glass-modal-header">
+        <div class="glass-modal-header-info">
+          <div class="google-badge-avatar">
+            <svg width="22" height="22" viewBox="0 0 24 24">
+              <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+              <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+              <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
+              <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
+            </svg>
+          </div>
+          <div class="modal-title-wrap">
+            <h3 class="modal-title">Google orqali kirish</h3>
+            <span class="modal-badge-subtitle">Google hisobingizni tanlang</span>
+          </div>
+        </div>
+        <button type="button" class="glass-modal-close" id="authModalCloseBtn" aria-label="Yopish">&times;</button>
+      </div>
+
+      <div class="glass-modal-body">
+        <p class="auth-notice-text">
+          Shu rasmdagi <strong>hasanboy.azizjonovich@gmail.com</strong> Google hisobingiz bilan kirsangiz, loyiha qo'shish va o'chirish imkoniyati avtomatik ochiladi.
+        </p>
+
+        <!-- Tasdiqlangan Google Profili (User rasmiga moslangan) -->
+        <div class="google-user-card" id="adminQuickLoginCard">
+          <div class="google-user-avatar-wrap">
+            <img src="images/Icon.jpg" alt="Hasanboy" class="google-user-avatar">
+            <span class="google-verified-icon">✓</span>
+          </div>
+          <div class="google-user-info">
+            <strong class="google-user-name">Hasanboy</strong>
+            <span class="google-user-email">hasanboy.azizjonovich@gmail.com</span>
+            <span class="google-admin-status-badge">Google Hisob</span>
+          </div>
+        </div>
+
+        <form id="authLoginForm" class="auth-form-wrap">
+          <button type="button" class="btn-google-sign-in" id="quickLoginAdminBtn">
+            <svg width="20" height="20" viewBox="0 0 24 24">
+              <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+              <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+              <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
+              <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
+            </svg>
+            <span>hasanboy.azizjonovich@gmail.com bilan kirish</span>
+          </button>
+
+          <!-- Boshqa hisob bilan sinash (Ruxsat nazorati) -->
+          <div class="auth-divider">
+            <span>Boshqa Google hisobini sinab ko'rish</span>
+          </div>
+
+          <div class="form-group">
+            <label for="customEmailInput" class="form-label">Boshqa Google emaili:</label>
+            <div class="input-with-button">
+              <input type="email" id="customEmailInput" class="form-input" placeholder="masalan: boshqa_shaxs@gmail.com">
+              <button type="button" class="btn btn-ghost-admin" id="testOtherEmailBtn">Kirish</button>
+            </div>
+          </div>
+
+          <div class="auth-alert-box" id="authAlertBox" style="display: none;"></div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ================= YANGI LOYIHA QO'SHISH MODALI ================= -->
+<div class="glass-modal-overlay" id="addProjectModal" aria-hidden="true" role="dialog" aria-modal="true">
+  <div class="modal-ambient-glow" aria-hidden="true">
+    <div class="ambient-orb orb-purple"></div>
+    <div class="ambient-orb orb-blue"></div>
+    <div class="ambient-orb orb-cyan"></div>
+  </div>
+  <div class="glass-modal-container modal-container-md">
+    <div class="glass-modal-card add-project-modal-card">
+      <div class="glass-modal-header">
+        <div class="glass-modal-header-info">
+          <div class="modal-badge-icon-wrap">
+            <span>✨</span>
+          </div>
+          <div class="modal-title-wrap">
+            <h3 class="modal-title">Yangi Loyiha Qo'shish</h3>
+            <span class="modal-badge-subtitle">Smart Avto-Tahlil &amp; Loyiha Generatori</span>
+          </div>
+        </div>
+        <button type="button" class="glass-modal-close" id="addProjectModalCloseBtn" aria-label="Yopish">&times;</button>
+      </div>
+
+      <div class="glass-modal-body">
+        <div class="smart-helper-banner">
+          <span class="smart-helper-icon">⚡</span>
+          <div class="smart-helper-text">
+            <strong>Aqlli Tizim:</strong> Loyiha havolasi (link) va u haqida qisqacha ma'lumot kiritsangiz kifoya — tizim nom, toifa va teglarni avtomatik shakllantiradi!
+          </div>
+        </div>
+
+        <form id="addNewProjectForm" class="project-form-wrap">
+          <!-- Havola -->
+          <div class="form-group">
+            <label for="newProjUrl" class="form-label">
+              <span>Loyiha havolasi (URL):</span>
+              <span class="required-star">*</span>
+            </label>
+            <input type="url" id="newProjUrl" class="form-input" placeholder="https://loyihangiz.onrender.com yoki https://t.me/botingiz" required>
+          </div>
+
+          <!-- Qisqacha ma'lumot -->
+          <div class="form-group">
+            <label for="newProjDesc" class="form-label">
+              <span>Loyiha haqida ma'lumot (Tavsif):</span>
+              <span class="required-star">*</span>
+            </label>
+            <textarea id="newProjDesc" class="form-textarea" rows="3" placeholder="Masalan: Ingliz tili Pre-Intermediate o'quvchilari uchun test va tahlil platformasi, Render va Node.js da yaratilgan..." required></textarea>
+          </div>
+
+          <!-- Smart Jonli Ko'rinish (Live Preview) -->
+          <div class="preview-section">
+            <div class="preview-header">
+              <span class="preview-title">👁️ Jonli Ko'rinish (Live Preview)</span>
+              <button type="button" class="btn-toggle-advanced" id="toggleAdvancedFieldsBtn">
+                <span>Sozlamalarni tahrirlash</span> ▾
+              </button>
+            </div>
+            
+            <div class="preview-card-wrapper">
+              <article class="project-card preview-card" id="projectCardPreview">
+                <div class="project-card-top">
+                  <span class="badge-type badge-web" id="prevBadge">English &amp; Test Platform</span>
+                </div>
+                <h3 class="project-title" id="prevTitle">Loyiha nomi bu yerda aks etadi</h3>
+                <p class="project-desc">
+                  <span class="desc-text" id="prevDesc">Loyiha havolasi va qisqacha ma'lumot kiritsangiz, ko'rinish avtomatik shakllanadi.</span>
+                </p>
+                <div class="tech-tags" id="prevTags">
+                  <span class="tech-tag">Render</span>
+                  <span class="tech-tag">Web App</span>
+                </div>
+                <div class="project-link">
+                  <span id="prevLinkText">Platformani ko'rish</span> <span aria-hidden="true">↗</span>
+                </div>
+              </article>
+            </div>
+          </div>
+
+          <!-- Qo'shimcha sozlash maydonlari (Collapsible) -->
+          <div class="advanced-fields-box" id="advancedFieldsBox" style="display: none;">
+            <div class="form-row">
+              <div class="form-group form-col">
+                <label for="newProjTitle" class="form-label">Loyiha Nomi:</label>
+                <input type="text" id="newProjTitle" class="form-input" placeholder="Avtomatik to'ldiriladi">
+              </div>
+              <div class="form-group form-col">
+                <label for="newProjBadge" class="form-label">Toifa (Badge):</label>
+                <input type="text" id="newProjBadge" class="form-input" placeholder="Masalan: English &amp; Test Platform">
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="newProjTags" class="form-label">Teglar (vergul bilan ajrating):</label>
+              <input type="text" id="newProjTags" class="form-input" placeholder="Render, English Test, EdTech">
+            </div>
+          </div>
+
+          <div class="form-submit-row">
+            <button type="submit" class="btn btn-primary btn-submit-project" id="saveProjectBtn">
+              <span>🚀 Loyihani Portfolio'ga Qo'shish</span>
+            </button>
+            <button type="button" class="btn btn-ghost" id="cancelAddProjectBtn">Bekor qilish</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ================= O'CHIRILGAN LOYIHALAR ARXIVI (SAVATCHA) MODALI ================= -->
+<div class="glass-modal-overlay" id="deletedProjectsModal" aria-hidden="true" role="dialog" aria-modal="true">
+  <div class="modal-ambient-glow" aria-hidden="true">
+    <div class="ambient-orb orb-purple"></div>
+    <div class="ambient-orb orb-blue"></div>
+  </div>
+  <div class="glass-modal-container modal-container-md">
+    <div class="glass-modal-card trash-modal-card">
+      <div class="glass-modal-header">
+        <div class="glass-modal-header-info">
+          <div class="modal-badge-icon-wrap" style="background: rgba(239, 68, 68, 0.15); border-color: rgba(239, 68, 68, 0.3);">
+            <span>🗑️</span>
+          </div>
+          <div class="modal-title-wrap">
+            <h3 class="modal-title">O'chirilgan Loyihalar Arxivi</h3>
+            <span class="modal-badge-subtitle">Har bir loyiha nomi va linki bilan saqlangan</span>
+          </div>
+        </div>
+        <button type="button" class="glass-modal-close" id="trashModalCloseBtn" aria-label="Yopish">&times;</button>
+      </div>
+
+      <div class="glass-modal-body">
+        <p class="auth-notice-text">
+          Bu yerda o'chirilgan barcha loyihalar nomi va havolasi bilan saqlanadi. Istalgan loyihangizni bir bosish bilan o'z joyiga qayta tiklashingiz mumkin.
+        </p>
+
+        <div class="trash-list-wrap" id="trashListContainer">
+          <!-- Dinamik tarzda JS orqali to'ldiriladi -->
+        </div>
+      </div>
+
+      <div class="glass-modal-footer" style="display: flex; justify-content: space-between; align-items: center;">
+        <button type="button" class="btn btn-ghost" id="emptyTrashBtn" style="color: #f87171; border-color: rgba(239, 68, 68, 0.3);">
+          🗑️ Arxivni tozalash
+        </button>
+        <button type="button" class="btn btn-ghost" id="closeTrashSecondaryBtn">
+          Yopish
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ================= TOAST BILDIRISHNOMASI ================= -->
+<div class="custom-toast" id="customToast" aria-live="polite">
+  <div class="toast-icon" id="toastIcon">✓</div>
+  <div class="toast-content">
+    <div class="toast-title" id="toastTitle">Muvaffaqiyatli!</div>
+    <div class="toast-message" id="toastMessage">Operatsiya bajarildi.</div>
+  </div>
+</div>
+
+<script src="js/main.js"></script>
 </body>
 </html>
