@@ -186,24 +186,17 @@ document.addEventListener('DOMContentLoaded', () => {
     authAlertBox.style.display = 'block';
   }
 
+  // Faqat hasanboy.azizjonovich@gmail.com hisobi orqali kirilgandagina admin ma'lumoti qaytaradi
+  // Begona foydalanuvchilar va mehmonlar uchun doimo null qaytaradi!
   function getAdminAuth() {
     try {
       const data = localStorage.getItem(AUTH_STORAGE_KEY);
-      if (data) {
-        const parsed = JSON.parse(data);
-        if (parsed && parsed.email && parsed.email.toLowerCase() === ADMIN_EMAIL.toLowerCase()) {
-          return parsed;
-        }
+      if (!data) return null;
+      const parsed = JSON.parse(data);
+      if (parsed && typeof parsed.email === 'string' && parsed.email.trim().toLowerCase() === ADMIN_EMAIL.toLowerCase()) {
+        return parsed;
       }
-      // Sayt egasi (Hasanboy) uchun avtomatik tanish:
-      const defaultProfile = {
-        email: ADMIN_EMAIL,
-        name: 'Hasanboy',
-        role: 'admin',
-        picture: 'images/icon.jpg'
-      };
-      localStorage.setItem(AUTH_STORAGE_KEY, JSON.stringify(defaultProfile));
-      return defaultProfile;
+      return null;
     } catch (e) {
       return null;
     }
@@ -219,6 +212,11 @@ document.addEventListener('DOMContentLoaded', () => {
     updateAuthUI();
   }
 
+  function removeDeleteButtonsFromCards() {
+    const delButtons = document.querySelectorAll('.btn-delete-project');
+    delButtons.forEach(btn => btn.remove());
+  }
+
   function updateAuthUI() {
     const auth = getAdminAuth();
     const isAuthed = !!auth;
@@ -226,15 +224,16 @@ document.addEventListener('DOMContentLoaded', () => {
     if (isAuthed) {
       document.body.classList.add('admin-mode-active');
       if (adminToolbar) adminToolbar.style.display = 'block';
+      ensureDeleteButtonsOnCards();
     } else {
       document.body.classList.remove('admin-mode-active');
       if (adminToolbar) adminToolbar.style.display = 'none';
+      removeDeleteButtonsFromCards();
     }
-
-    ensureDeleteButtonsOnCards();
   }
 
-  // Maxfiy ochish: Logo ustiga ketma-ket 3 marta bosilganda yoki Ctrl+Shift+A bosilganda
+  // Maxfiy ochish usullari:
+  // 1. Logo ustiga ketma-ket 3 marta bosilganda
   const siteLogo = document.querySelector('.logo');
   let logoClickCount = 0;
   let logoClickTimer = null;
@@ -253,6 +252,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  // 2. Klaviatura kombinatsiyasi: Ctrl + Shift + A
   document.addEventListener('keydown', (e) => {
     if (e.ctrlKey && e.shiftKey && (e.key === 'A' || e.key === 'a')) {
       e.preventDefault();
@@ -260,15 +260,42 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // Chiqishni boshqarish
+  // 3. Footer dagi maxfiy tugma yoki copyright ustiga bosilganda
+  const footerSecretTrigger = document.getElementById('footerSecretTrigger');
+  if (footerSecretTrigger) {
+    footerSecretTrigger.addEventListener('click', openAuthModal);
+  }
+  const footerCopy = document.querySelector('.footer-copy');
+  if (footerCopy) {
+    footerCopy.addEventListener('dblclick', openAuthModal);
+  }
+
+  // 4. URL parametri orqali avtomatik ochish (?auth, ?login, ?admin)
+  try {
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.has('admin') || urlParams.has('auth') || urlParams.has('login')) {
+      setTimeout(() => {
+        openAuthModal();
+      }, 350);
+    }
+  } catch (e) {}
+
+  // Chiqishni boshqarish (Toolbar, header yoki drawer dan)
   document.addEventListener('click', (e) => {
-    if (e.target.closest('#logoutBtn') || e.target.closest('#drawerLogoutBtn')) {
+    if (e.target.closest('#toolbarLogoutBtn') || e.target.closest('#logoutBtn') || e.target.closest('#drawerLogoutBtn')) {
       clearAdminAuth();
-      showToast('Tizimdan chiqildi', 'Google hisobidan muvaffaqiyatli chiqildi.');
+      showToast('Hisobdan chiqildi', 'Google hisobingizdan chiqildi. Sayt oddiy mehmon ko\'rinishiga o\'tkazildi.');
     }
   });
 
   // Hasanboy Google hisobi orqali 1-bosqichda tezkor kirish (PINSIZ!)
+  const adminQuickLoginCard = document.getElementById('adminQuickLoginCard');
+  if (adminQuickLoginCard) {
+    adminQuickLoginCard.addEventListener('click', () => {
+      if (quickLoginAdminBtn) quickLoginAdminBtn.click();
+    });
+  }
+
   if (quickLoginAdminBtn) {
     quickLoginAdminBtn.addEventListener('click', () => {
       setAdminAuth({
@@ -545,19 +572,23 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Yangi loyiha kartochkasining HTML shablonini yasash
   function createProjectCardHtml(proj) {
+    const isAuthed = !!getAdminAuth();
     const tagsHtml = (proj.tags || []).map(t => `<span class="tech-tag">${t}</span>`).join('\n            ');
-    return `
-        <!-- DYNAMIC PROJECT: ${proj.title} -->
-        <article class="project-card just-added" data-project-id="${proj.id}">
-          <div class="project-card-top">
-            <span class="badge-type ${proj.badgeClass || 'badge-web'}">${proj.badge}</span>
+    const deleteBtnHtml = isAuthed ? `
             <button type="button" class="btn-delete-project" title="Loyihani o'chirish">
               <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
                 <polyline points="3 6 5 6 21 6"></polyline>
                 <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
               </svg>
               <span>O'chirish</span>
-            </button>
+            </button>` : '';
+
+    return `
+        <!-- DYNAMIC PROJECT: ${proj.title} -->
+        <article class="project-card just-added" data-project-id="${proj.id}">
+          <div class="project-card-top">
+            <span class="badge-type ${proj.badgeClass || 'badge-web'}">${proj.badge}</span>
+            ${deleteBtnHtml}
           </div>
           <h3 class="project-title">${proj.title}</h3>
           <p class="project-desc">

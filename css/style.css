@@ -1822,6 +1822,10 @@ ul {
   width: 100%;
   padding-top: 24px;
   border-top: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
 }
 
 .footer-copy {
@@ -1829,6 +1833,27 @@ ul {
   color: var(--text-faint);
   margin: 0;
   text-align: center;
+}
+
+.footer-secret-trigger {
+  position: absolute;
+  right: 0;
+  top: 24px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 6px;
+  border-radius: 6px;
+  opacity: 0.25;
+  transition: opacity 0.25s ease, transform 0.25s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.footer-secret-trigger:hover {
+  opacity: 0.95;
+  transform: scale(1.15);
 }
 
 .footer-link {
@@ -2845,6 +2870,27 @@ ul {
   background: rgba(255, 255, 255, 0.1);
   color: #fff;
   border-color: rgba(255, 255, 255, 0.25);
+}
+
+.btn-logout-admin {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 15px;
+  font-size: 0.84rem;
+  font-weight: 600;
+  border-radius: 10px;
+  background: rgba(239, 68, 68, 0.1);
+  color: #fca5a5;
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-logout-admin:hover {
+  background: rgba(239, 68, 68, 0.22);
+  color: #fff;
+  border-color: rgba(239, 68, 68, 0.55);
 }
 
 /* ================= Delete button on cards ================= */
