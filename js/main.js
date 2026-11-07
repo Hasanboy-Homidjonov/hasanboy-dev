@@ -8,6 +8,9 @@ document.addEventListener('DOMContentLoaded', () => {
   // ====================================================
   // CONSTANTS & KEYS
   // ====================================================
+  const OWNER_TG_USERNAME = 'khomidjonovh';
+  const OWNER_TG_ID = '7034211289';
+  const OWNER_PHONE_CLEAN = '774597750';
   const ADMIN_EMAIL = 'hasanboy.azizjonovich@gmail.com';
   const AUTH_STORAGE_KEY = 'hasanboy_portfolio_admin_auth';
   const CUSTOM_PROJECTS_KEY = 'hasanboy_portfolio_custom_projects';
@@ -143,22 +146,272 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // ====================================================
-  // 4. GOOGLE AUTH & ADMIN BOSHQARUV TIZIMI
+  // 4. TELEGRAM AUTH & ADMIN BOSHQARUV TIZIMI
   // ====================================================
   const authModal = document.getElementById('adminAuthModal');
   const authModalCloseBtn = document.getElementById('authModalCloseBtn');
   const adminToolbar = document.getElementById('adminToolbar');
-  const quickLoginAdminBtn = document.getElementById('quickLoginAdminBtn');
-  const testOtherEmailBtn = document.getElementById('testOtherEmailBtn');
-  const customEmailInput = document.getElementById('customEmailInput');
-  const authAlertBox = document.getElementById('authAlertBox');
+  const headerConnectBtn = document.getElementById('headerConnectBtn');
+  const headerConnectIcon = document.getElementById('headerConnectIcon');
+  const headerConnectTitle = document.getElementById('headerConnectTitle');
+  const headerConnectTag = document.getElementById('headerConnectTag');
+  const drawerConnectBtn = document.getElementById('drawerConnectBtn');
+  const drawerConnectIcon = document.getElementById('drawerConnectIcon');
+  const drawerConnectTitle = document.getElementById('drawerConnectTitle');
+  const drawerConnectTag = document.getElementById('drawerConnectTag');
+  const tgModalDynamicBody = document.getElementById('tgModalDynamicBody');
+
+  // Asl telefon SVG ikonkasi (qimirlab turuvchi)
+  const defaultPhoneSvgIcon = `
+    <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" class="phone-ring-svg">
+      <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+    </svg>
+  `;
+
+  // Faqat Hasanboy (@KhomidjonovH, ID: 7034211289) profili orqali kirilganda admin ruxsatini berish
+  function getAdminAuth() {
+    try {
+      const data = localStorage.getItem(AUTH_STORAGE_KEY);
+      if (!data) return null;
+      const parsed = JSON.parse(data);
+      if (parsed && parsed.role === 'admin') {
+        const u = (parsed.username || '').replace('@', '').trim().toLowerCase();
+        const id = (parsed.userId || '').toString().trim();
+        const p = (parsed.phone || '').replace(/[\s+-]/g, '');
+        const email = (parsed.email || '').trim().toLowerCase();
+
+        if (
+          parsed.isOwner === true ||
+          u === OWNER_TG_USERNAME ||
+          id === OWNER_TG_ID ||
+          p.includes(OWNER_PHONE_CLEAN) ||
+          email === ADMIN_EMAIL.toLowerCase()
+        ) {
+          return parsed;
+        }
+      }
+      return null;
+    } catch (e) {
+      return null;
+    }
+  }
+
+  // Boshqa akkaunt bilan (Mehmon) kiritilganmi?
+  function getGuestAuth() {
+    try {
+      const data = localStorage.getItem(AUTH_STORAGE_KEY);
+      if (!data) return null;
+      const parsed = JSON.parse(data);
+      if (parsed && parsed.role === 'guest') {
+        return parsed;
+      }
+      return null;
+    } catch (e) {
+      return null;
+    }
+  }
+
+  function setAdminAuth(profile) {
+    localStorage.setItem(AUTH_STORAGE_KEY, JSON.stringify(profile));
+    updateAuthUI();
+  }
+
+  function setGuestAuth(profile) {
+    localStorage.setItem(AUTH_STORAGE_KEY, JSON.stringify(profile));
+    updateAuthUI();
+  }
+
+  function clearAdminAuth() {
+    localStorage.removeItem(AUTH_STORAGE_KEY);
+    updateAuthUI();
+  }
+
+  function removeDeleteButtonsFromCards() {
+    const delButtons = document.querySelectorAll('.btn-delete-project');
+    delButtons.forEach(btn => btn.remove());
+  }
+
+  // Sayt ko'rinishini foydalanuvchi holatiga moslash
+  function updateAuthUI() {
+    const admin = getAdminAuth();
+    const guest = getGuestAuth();
+
+    if (admin) {
+      // 1. FOYDALANUVCHI HASANBOY (EGA / ADMIN)
+      document.body.classList.add('admin-mode-active');
+      if (adminToolbar) adminToolbar.style.display = 'block';
+      ensureDeleteButtonsOnCards();
+
+      // Header "Bog'lanish" tugmasini aktiv holatga keltirish
+      if (headerConnectBtn) {
+        headerConnectBtn.classList.add('is-connected');
+        if (headerConnectIcon) headerConnectIcon.innerHTML = `<img src="images/icon.jpg" class="nav-cta-avatar-thumb" alt="Hasanboy">`;
+        if (headerConnectTitle) headerConnectTitle.textContent = 'Hasanboy (Ega)';
+        if (headerConnectTag) headerConnectTag.textContent = 'Admin • Faol';
+      }
+
+      // Drawer CTA
+      if (drawerConnectBtn) {
+        drawerConnectBtn.classList.add('is-connected');
+        if (drawerConnectIcon) drawerConnectIcon.innerHTML = `<img src="images/icon.jpg" class="nav-cta-avatar-thumb" alt="Hasanboy">`;
+        if (drawerConnectTitle) drawerConnectTitle.textContent = 'Hasanboy (Ega)';
+        if (drawerConnectTag) drawerConnectTag.textContent = 'Admin • Faol';
+      }
+    } else if (guest) {
+      // 2. FOYDALANUVCHI BOSHQA AKKAUNT (MEHMON)
+      // Loyihalarni qo'shish va o'chirish KO'RSATILMAYDI! Sof chiroyli sayt ko'rinadi!
+      document.body.classList.remove('admin-mode-active');
+      if (adminToolbar) adminToolbar.style.display = 'none';
+      removeDeleteButtonsFromCards();
+
+      const displayGuestName = guest.username || 'Mehmon';
+
+      if (headerConnectBtn) {
+        headerConnectBtn.classList.add('is-connected');
+        if (headerConnectIcon) headerConnectIcon.innerHTML = `<span style="font-size:16px;">👤</span>`;
+        if (headerConnectTitle) headerConnectTitle.textContent = displayGuestName;
+        if (headerConnectTag) headerConnectTag.textContent = 'Mehmon • Bog\'langan';
+      }
+
+      if (drawerConnectBtn) {
+        drawerConnectBtn.classList.add('is-connected');
+        if (drawerConnectIcon) drawerConnectIcon.innerHTML = `<span style="font-size:16px;">👤</span>`;
+        if (drawerConnectTitle) drawerConnectTitle.textContent = displayGuestName;
+        if (drawerConnectTag) drawerConnectTag.textContent = 'Mehmon • Bog\'langan';
+      }
+    } else {
+      // 3. MEHMON BOG'LANISHNI BOSMAGAN (STANDART HOLAT)
+      // Hech qanday boshqaruv yoki o'chirish tugmalari yo'q, sayt toza ko'rinadi
+      document.body.classList.remove('admin-mode-active');
+      if (adminToolbar) adminToolbar.style.display = 'none';
+      removeDeleteButtonsFromCards();
+
+      if (headerConnectBtn) {
+        headerConnectBtn.classList.remove('is-connected');
+        if (headerConnectIcon) headerConnectIcon.innerHTML = defaultPhoneSvgIcon;
+        if (headerConnectTitle) headerConnectTitle.textContent = 'Bog\'lanish';
+        if (headerConnectTag) headerConnectTag.textContent = '';
+      }
+
+      if (drawerConnectBtn) {
+        drawerConnectBtn.classList.remove('is-connected');
+        if (drawerConnectIcon) drawerConnectIcon.innerHTML = defaultPhoneSvgIcon;
+        if (drawerConnectTitle) drawerConnectTitle.textContent = 'Bog\'lanish';
+        if (drawerConnectTag) drawerConnectTag.textContent = '';
+      }
+    }
+  }
+
+  // Modal ichidagi kontentni dinamik tarzda yangilash
+  function renderAuthModalBody() {
+    if (!tgModalDynamicBody) return;
+    const admin = getAdminAuth();
+
+    if (admin) {
+      // 1. HASANBOY (EGA / ADMIN) HISOBI AVTOMATIK ANIQLANGAN HOLAT
+      tgModalDynamicBody.innerHTML = `
+        <div class="tg-connected-view">
+          <div class="tg-connected-badge">
+            <span class="tg-sticker tg-anim-fire">👑</span>
+            <span>Loyiha Egasi (Hasanboy Homidjonov) hisobi faol</span>
+          </div>
+
+          <div class="contact-methods-grid">
+            <a href="https://t.me/KhomidjonovH" target="_blank" rel="noopener noreferrer" class="contact-method-card contact-method-tg">
+              <div class="contact-method-left">
+                <span class="contact-method-icon tg-sticker tg-anim-bot">✈️</span>
+                <div class="contact-method-text">
+                  <strong>Telegram profilim</strong>
+                  <small>@KhomidjonovH • Doimiy Online</small>
+                </div>
+              </div>
+              <span class="contact-method-arrow">↗</span>
+            </a>
+            <a href="tel:+998774597750" class="contact-method-card contact-method-phone">
+              <div class="contact-method-left">
+                <span class="contact-method-icon tg-sticker tg-anim-zap">📞</span>
+                <div class="contact-method-text">
+                  <strong>Telefon raqamim</strong>
+                  <small>+998 77 459 77 50</small>
+                </div>
+              </div>
+              <span class="contact-method-arrow">↗</span>
+            </a>
+            <a href="https://mail.google.com/mail/?view=cm&fs=1&to=hasanboy.azizjonovich@gmail.com" target="_blank" rel="noopener noreferrer" class="contact-method-card contact-method-email">
+              <div class="contact-method-left">
+                <span class="contact-method-icon tg-sticker tg-anim-chart">✉️</span>
+                <div class="contact-method-text">
+                  <strong>Email pochtam</strong>
+                  <small>hasanboy.azizjonovich@gmail.com</small>
+                </div>
+              </div>
+              <span class="contact-method-arrow">↗</span>
+            </a>
+          </div>
+
+          <div class="tg-connected-actions" style="margin-top: 10px;">
+            <button type="button" class="btn btn-primary" id="modalAddProjShortcutBtn" style="justify-content: center; padding: 12px;">
+              <span class="tg-sticker tg-anim-rocket">🚀</span>
+              <span>＋ Yangi Loyiha Qo'shish</span>
+            </button>
+            <button type="button" class="btn btn-ghost" id="modalTrashShortcutBtn" style="justify-content: center; padding: 12px;">
+              <span class="tg-sticker tg-anim-tools">🗑️</span>
+              <span>O'chirilganlar Arxivi</span>
+            </button>
+            <button type="button" class="btn btn-logout-admin" id="modalLogoutBtn" style="justify-content: center; padding: 11px; margin-top: 2px;">
+              <span>Chiqish (Mehmon rejimiga o'tish)</span>
+            </button>
+          </div>
+        </div>
+      `;
+    } else {
+      // 2. MEHMONLAR UCHUN TOZA, TEZKOR VA XAVFSIZ ALOQA MODALI
+      // HECH QANDAY OCHIQ BOSIB KIRADIGAN TUGMA YO'Q - FAQAT HASANBOY BILAN BOG'LANISH YO'LLARI
+      tgModalDynamicBody.innerHTML = `
+        <div class="contact-methods-grid">
+          <!-- 1. TELEGRAM: TO'G'RI TELEGRAMGA KIRGIZIB YUBORADI -->
+          <a href="https://t.me/KhomidjonovH" target="_blank" rel="noopener noreferrer" class="contact-method-card contact-method-tg">
+            <div class="contact-method-left">
+              <span class="contact-method-icon tg-sticker tg-anim-bot">✈️</span>
+              <div class="contact-method-text">
+                <strong>Telegram orqali bog'lanish</strong>
+                <small>@KhomidjonovH • Doimiy Online</small>
+              </div>
+            </div>
+            <span class="contact-method-arrow">↗</span>
+          </a>
+
+          <!-- 2. TELEFON: TO'G'RI QO'NG'IROQ QILISHGA KIRGIZIB YUBORADI -->
+          <a href="tel:+998774597750" class="contact-method-card contact-method-phone">
+            <div class="contact-method-left">
+              <span class="contact-method-icon tg-sticker tg-anim-zap">📞</span>
+              <div class="contact-method-text">
+                <strong>Qo'ng'iroq qilish</strong>
+                <small>+998 77 459 77 50</small>
+              </div>
+            </div>
+            <span class="contact-method-arrow">↗</span>
+          </a>
+
+          <!-- 3. EMAIL: TO'G'RI XAT YOZISHGA KIRGIZIB YUBORADI -->
+          <a href="https://mail.google.com/mail/?view=cm&fs=1&to=hasanboy.azizjonovich@gmail.com" target="_blank" rel="noopener noreferrer" class="contact-method-card contact-method-email">
+            <div class="contact-method-left">
+              <span class="contact-method-icon tg-sticker tg-anim-chart">✉️</span>
+              <div class="contact-method-text">
+                <strong>Email orqali yozish</strong>
+                <small>hasanboy.azizjonovich@gmail.com</small>
+              </div>
+            </div>
+            <span class="contact-method-arrow">↗</span>
+          </a>
+        </div>
+      `;
+    }
+  }
 
   function openAuthModal() {
     if (!authModal) return;
-    if (authAlertBox) {
-      authAlertBox.style.display = 'none';
-      authAlertBox.textContent = '';
-    }
+    renderAuthModalBody();
     authModal.classList.add('is-open');
     authModal.setAttribute('aria-hidden', 'false');
     document.body.classList.add('modal-open');
@@ -179,60 +432,152 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  // "Bog'lanish" tugmalari bosilganda to'g'ridan-to'g'ri Telegram Auth modalini ochish
+  if (headerConnectBtn) {
+    headerConnectBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      openAuthModal();
+    });
+  }
+
+  if (drawerConnectBtn) {
+    drawerConnectBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      closeMobileMenu();
+      openAuthModal();
+    });
+  }
+
   function showAuthAlert(message, type = 'error') {
-    if (!authAlertBox) return;
-    authAlertBox.className = `auth-alert-box alert-${type}`;
-    authAlertBox.innerHTML = message;
-    authAlertBox.style.display = 'block';
+    const alertBox = document.getElementById('authAlertBox');
+    if (!alertBox) return;
+    alertBox.className = `tg-alert-box alert-${type}`;
+    alertBox.innerHTML = message;
+    alertBox.style.display = 'block';
   }
 
-  // Faqat hasanboy.azizjonovich@gmail.com hisobi orqali kirilgandagina admin ma'lumoti qaytaradi
-  // Begona foydalanuvchilar va mehmonlar uchun doimo null qaytaradi!
-  function getAdminAuth() {
-    try {
-      const data = localStorage.getItem(AUTH_STORAGE_KEY);
-      if (!data) return null;
-      const parsed = JSON.parse(data);
-      if (parsed && typeof parsed.email === 'string' && parsed.email.trim().toLowerCase() === ADMIN_EMAIL.toLowerCase()) {
-        return parsed;
+  // Telegram hisobni solishtirish va autentifikatsiya qilish
+  function handleAccountVerification() {
+    const inputEl = document.getElementById('tgAccountInput');
+    const val = inputEl ? inputEl.value.trim() : '';
+    if (!val) {
+      showToast('Xatolik', 'Iltimos, Telegram username yoki ID kiriting.', 'error');
+      return;
+    }
+
+    const clean = val.replace('@', '').toLowerCase();
+    if (clean === OWNER_TG_USERNAME || clean === OWNER_TG_ID || clean.includes(OWNER_PHONE_CLEAN)) {
+      // 1. Hisob egasi (Hasanboy) tanildi
+      setAdminAuth({
+        role: 'admin',
+        isOwner: true,
+        name: 'Hasanboy Homidjonov',
+        username: '@KhomidjonovH',
+        userId: OWNER_TG_ID,
+        phone: '+998 77 459 77 50',
+        channel: 'Hasanboy | Dev',
+        picture: 'images/icon.jpg',
+        loginAt: new Date().toISOString()
+      });
+      closeAuthModal();
+      showToast('Xush kelibsiz, Hasanboy!', 'Hisobingiz tasdiqlandi. Yangi loyiha qo\'shish va o\'chirish imkoniyati faollashtirildi!');
+      const projEl = document.getElementById('projects');
+      if (projEl) {
+        setTimeout(() => projEl.scrollIntoView({ behavior: 'smooth', block: 'start' }), 250);
       }
-      return null;
-    } catch (e) {
-      return null;
-    }
-  }
-
-  function setAdminAuth(profile) {
-    localStorage.setItem(AUTH_STORAGE_KEY, JSON.stringify(profile));
-    updateAuthUI();
-  }
-
-  function clearAdminAuth() {
-    localStorage.removeItem(AUTH_STORAGE_KEY);
-    updateAuthUI();
-  }
-
-  function removeDeleteButtonsFromCards() {
-    const delButtons = document.querySelectorAll('.btn-delete-project');
-    delButtons.forEach(btn => btn.remove());
-  }
-
-  function updateAuthUI() {
-    const auth = getAdminAuth();
-    const isAuthed = !!auth;
-
-    if (isAuthed) {
-      document.body.classList.add('admin-mode-active');
-      if (adminToolbar) adminToolbar.style.display = 'block';
-      ensureDeleteButtonsOnCards();
     } else {
-      document.body.classList.remove('admin-mode-active');
-      if (adminToolbar) adminToolbar.style.display = 'none';
-      removeDeleteButtonsFromCards();
+      // 2. Boshqa hisob (Mehmon)
+      const formattedUser = val.startsWith('@') ? val : `@${val}`;
+      setGuestAuth({
+        role: 'guest',
+        isOwner: false,
+        username: formattedUser,
+        loginAt: new Date().toISOString()
+      });
+      closeAuthModal();
+      showToast('Mehmon sifatida bog\'landingiz', `Siz (${formattedUser}) hisobi bilan kirdingiz. Loyihalarni qo'shish va o'chirish faqat hisob egasiga ochiq.`);
     }
   }
 
-  // Maxfiy ochish usullari:
+  // Dinamik modal ichidagi hodisalarni boshqarish (Event Delegation)
+  if (tgModalDynamicBody) {
+    tgModalDynamicBody.addEventListener('click', (e) => {
+      // 1. Tekshirish va bog'lash tugmasi
+      if (e.target.closest('#tgVerifyAccountBtn')) {
+        handleAccountVerification();
+        return;
+      }
+
+      // 2. Hasanboy hisobini bog'lash (Ega sifatida tasdiqlash)
+      if (e.target.closest('#quickLoginAdminBtn') || e.target.closest('.btn-tg-connect-owner')) {
+        setAdminAuth({
+          role: 'admin',
+          isOwner: true,
+          name: 'Hasanboy Homidjonov',
+          username: '@KhomidjonovH',
+          userId: OWNER_TG_ID,
+          phone: '+998 77 459 77 50',
+          channel: 'Hasanboy | Dev',
+          picture: 'images/icon.jpg',
+          loginAt: new Date().toISOString()
+        });
+
+        closeAuthModal();
+        showToast('Xush kelibsiz, Hasanboy!', 'Profilingiz (ID: 7034211289) doimiy bog\'landi! Qaytib kirganingizda ham loyiha qo\'shish va o\'chirish doimiy saqlanadi.');
+
+        const projEl = document.getElementById('projects');
+        if (projEl) {
+          setTimeout(() => {
+            projEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }, 250);
+        }
+        return;
+      }
+
+      // 3. Modal ichidagi shortcut tugmalar
+      if (e.target.closest('#modalAddProjShortcutBtn')) {
+        closeAuthModal();
+        openAddProjectModal();
+        const projEl = document.getElementById('projects');
+        if (projEl) projEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        return;
+      }
+
+      if (e.target.closest('#modalTrashShortcutBtn')) {
+        closeAuthModal();
+        openTrashModal();
+        return;
+      }
+
+      // 4. Modal ichidagi Chiqish tugmasi
+      if (e.target.closest('#modalLogoutBtn')) {
+        clearAdminAuth();
+        closeAuthModal();
+        showToast('Hisobdan chiqildi', 'Sayt oddiy mehmon ko\'rinishiga qaytarildi.');
+        return;
+      }
+
+      // 5. Mehmon hisobidan chiqish / boshqa hisobga o'tish
+      if (e.target.closest('#modalSwitchAccountBtn')) {
+        clearAdminAuth();
+        renderAuthModalBody();
+        showToast('Chiqildi', 'Boshqa hisob bilan bog\'lanishingiz mumkin.');
+        return;
+      }
+    });
+  }
+
+  // Enter tugmasi bosilganda ham hisobni tekshirish
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' && e.target && e.target.id === 'tgAccountInput') {
+      e.preventDefault();
+      handleAccountVerification();
+    }
+  });
+
+
+
+  // Maxfiy ochish usullari (Qulaylik uchun):
   // 1. Logo ustiga ketma-ket 3 marta bosilganda
   const siteLogo = document.querySelector('.logo');
   let logoClickCount = 0;
@@ -260,17 +605,13 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // 3. Footer dagi maxfiy tugma yoki copyright ustiga bosilganda
-  const footerSecretTrigger = document.getElementById('footerSecretTrigger');
-  if (footerSecretTrigger) {
-    footerSecretTrigger.addEventListener('click', openAuthModal);
-  }
+  // 3. Footer dagi copyright ustiga ikki marta bosilganda
   const footerCopy = document.querySelector('.footer-copy');
   if (footerCopy) {
     footerCopy.addEventListener('dblclick', openAuthModal);
   }
 
-  // 4. URL parametri orqali avtomatik ochish (?auth, ?login, ?admin)
+  // 4. URL parametri orqali avtomatik ochish (?admin, ?auth, ?login)
   try {
     const urlParams = new URLSearchParams(window.location.search);
     if (urlParams.has('admin') || urlParams.has('auth') || urlParams.has('login')) {
@@ -284,57 +625,9 @@ document.addEventListener('DOMContentLoaded', () => {
   document.addEventListener('click', (e) => {
     if (e.target.closest('#toolbarLogoutBtn') || e.target.closest('#logoutBtn') || e.target.closest('#drawerLogoutBtn')) {
       clearAdminAuth();
-      showToast('Hisobdan chiqildi', 'Google hisobingizdan chiqildi. Sayt oddiy mehmon ko\'rinishiga o\'tkazildi.');
+      showToast('Hisobdan chiqildi', 'Sayt oddiy mehmon ko\'rinishiga o\'tkazildi.');
     }
   });
-
-  // Hasanboy Google hisobi orqali 1-bosqichda tezkor kirish (PINSIZ!)
-  const adminQuickLoginCard = document.getElementById('adminQuickLoginCard');
-  if (adminQuickLoginCard) {
-    adminQuickLoginCard.addEventListener('click', () => {
-      if (quickLoginAdminBtn) quickLoginAdminBtn.click();
-    });
-  }
-
-  if (quickLoginAdminBtn) {
-    quickLoginAdminBtn.addEventListener('click', () => {
-      setAdminAuth({
-        email: ADMIN_EMAIL,
-        name: 'Hasanboy',
-        role: 'admin',
-        picture: 'images/icon.jpg',
-        loginAt: new Date().toISOString()
-      });
-
-      closeAuthModal();
-      showToast('Xush kelibsiz, Hasanboy!', 'Google hisobingiz orqali kirdingiz. Loyiha qo\'shish va o\'chirish faollashdi.');
-    });
-  }
-
-  // Boshqa hisob bilan sinab ko'rish (Ruxsat nazorati)
-  if (testOtherEmailBtn) {
-    testOtherEmailBtn.addEventListener('click', () => {
-      const email = customEmailInput ? customEmailInput.value.trim().toLowerCase() : '';
-      if (!email) {
-        showAuthAlert('Iltimos, Google email manzilini kiriting.', 'error');
-        return;
-      }
-
-      if (email === ADMIN_EMAIL.toLowerCase()) {
-        setAdminAuth({
-          email: ADMIN_EMAIL,
-          name: 'Hasanboy',
-          role: 'admin',
-          picture: 'images/icon.jpg',
-          loginAt: new Date().toISOString()
-        });
-        closeAuthModal();
-        showToast('Xush kelibsiz, Hasanboy!', 'Google hisobingiz tasdiqlandi. Loyihalarni qo\'shish va o\'chirish mumkin.');
-      } else {
-        showAuthAlert(`❌ Ruxsat berilmadi: <strong>${email}</strong> hisobiga loyihalarni boshqarish ruxsati berilmagan.<br>Faqat <strong>${ADMIN_EMAIL}</strong> hisobi orqali loyiha qo'shish va o'chirish mumkin.`, 'error');
-      }
-    });
-  }
 
   // ====================================================
   // 5. LOYIHALARNI BOSHQARISH (QO'SHISH, O'CHIRISH, SAQLASH)
@@ -468,7 +761,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const tagsSet = new Set();
 
     // Hosting bo'yicha teglar
-    if (hostName.includes('onrender.com') || lower.includes('render')) tagsSet.add('Render');
+    if (hostName.includes('onrender.com')) tagsSet.add('Web App');
     if (hostName.includes('base44.app') || lower.includes('base44')) tagsSet.add('Base44');
     if (hostName.includes('netlify.app') || lower.includes('netlify')) tagsSet.add('Netlify');
     if (hostName.includes('github.com') || lower.includes('github')) tagsSet.add('GitHub');
@@ -517,7 +810,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const finalTitle = currentManualTitle || analysis.title || 'Loyiha nomi bu yerda aks etadi';
     const finalBadge = currentManualBadge || analysis.badge;
-    const finalDesc = desc || 'Loyiha havolasi va qisqacha ma\'lumot kiritilganda, ko\'rinish avtomatik shakllanadi.';
+    const finalDesc = desc || 'Loyiha havolasi, nomi va qisqacha ma\'lumot kiritilganda, ko\'rinish avtomatik shakllanadi.';
     const finalTags = currentManualTags ? currentManualTags.split(',').map(t => t.trim()).filter(Boolean) : analysis.tags;
 
     if (prevTitle) prevTitle.textContent = finalTitle;
@@ -533,7 +826,16 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  if (newProjUrl) newProjUrl.addEventListener('input', updateLivePreview);
+  if (newProjUrl) {
+    newProjUrl.addEventListener('input', () => {
+      const url = newProjUrl.value.trim();
+      if (url && newProjTitle && !newProjTitle.value.trim()) {
+        const analysis = analyzeProjectInput(url, newProjDesc ? newProjDesc.value : '');
+        newProjTitle.value = analysis.title;
+      }
+      updateLivePreview();
+    });
+  }
   if (newProjDesc) newProjDesc.addEventListener('input', updateLivePreview);
   if (newProjTitle) newProjTitle.addEventListener('input', updateLivePreview);
   if (newProjBadge) newProjBadge.addEventListener('input', updateLivePreview);
@@ -611,15 +913,15 @@ document.addEventListener('DOMContentLoaded', () => {
       e.preventDefault();
 
       const url = newProjUrl.value.trim();
+      const title = (newProjTitle && newProjTitle.value.trim()) || '';
       const desc = newProjDesc.value.trim();
 
-      if (!url || !desc) {
-        showToast('Xatolik', 'Iltimos, havola va qisqacha ma\'lumotni kiriting.', 'error');
+      if (!url || !title || !desc) {
+        showToast('Xatolik', 'Iltimos, havola (URL), loyiha nomi va qisqacha ma\'lumotni to\'ldiring.', 'error');
         return;
       }
 
       const analysis = analyzeProjectInput(url, desc);
-      const title = (newProjTitle && newProjTitle.value.trim()) || analysis.title;
       const badge = (newProjBadge && newProjBadge.value.trim()) || analysis.badge;
       const tags = (newProjTags && newProjTags.value.trim())
         ? newProjTags.value.split(',').map(t => t.trim()).filter(Boolean)
@@ -897,9 +1199,80 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // ====================================================
-  // 6. DASTLABKI YUKLASH VA SINXRONIZATSIYA
+  // 6. AVTOMATIK AKKAUNTNI SOLISHTIRIB TANIB OLISH VA DASTLABKI YUKLASH
   // ====================================================
+  function checkAutoAuth() {
+    // 1. Agar avvaldan localStorage da saqlangan bo'lsa (bir marta bog'langach, qaytib kirganda ham doimiy saqlanadi)
+    if (getAdminAuth()) return;
+
+    // 2. Telegram WebApp orqali ochilgan bo'lsa (ID: 7034211289 yoki username: khomidjonovh)
+    try {
+      const tgUser = window.Telegram?.WebApp?.initDataUnsafe?.user;
+      if (tgUser) {
+        const uid = String(tgUser.id || '');
+        const uname = (tgUser.username || '').toLowerCase();
+        if (uid === OWNER_TG_ID || uname === OWNER_TG_USERNAME) {
+          setAdminAuth({
+            role: 'admin',
+            isOwner: true,
+            name: `${tgUser.first_name || 'Hasanboy'} ${tgUser.last_name || ''}`.trim(),
+            username: tgUser.username ? `@${tgUser.username}` : '@KhomidjonovH',
+            userId: uid || OWNER_TG_ID,
+            phone: '+998 77 459 77 50',
+            channel: 'Hasanboy | Dev',
+            picture: 'images/icon.jpg',
+            loginAt: new Date().toISOString()
+          });
+          return;
+        } else {
+          setGuestAuth({
+            role: 'guest',
+            isOwner: false,
+            name: `${tgUser.first_name || 'Mehmon'} ${tgUser.last_name || ''}`.trim(),
+            username: tgUser.username ? `@${tgUser.username}` : `ID: ${uid}`,
+            userId: uid,
+            loginAt: new Date().toISOString()
+          });
+          return;
+        }
+      }
+    } catch (e) {}
+
+    // 3. URL parametrlari orqali tekshirish (?admin, #admin, ?id=7034211289)
+    try {
+      const urlParams = new URLSearchParams(window.location.search);
+      const hash = window.location.hash;
+      const paramId = urlParams.get('id');
+      const paramUser = (urlParams.get('user') || '').replace('@', '').toLowerCase();
+      const hasAdmin = urlParams.has('admin') || hash === '#admin' || hash === '#7034211289';
+
+      if (hasAdmin || paramId === OWNER_TG_ID || paramUser === OWNER_TG_USERNAME) {
+        setAdminAuth({
+          role: 'admin',
+          isOwner: true,
+          name: 'Hasanboy Homidjonov',
+          username: '@KhomidjonovH',
+          userId: OWNER_TG_ID,
+          phone: '+998 77 459 77 50',
+          channel: 'Hasanboy | Dev',
+          picture: 'images/icon.jpg',
+          loginAt: new Date().toISOString()
+        });
+        return;
+      } else if (paramUser && paramUser !== OWNER_TG_USERNAME) {
+        setGuestAuth({
+          role: 'guest',
+          isOwner: false,
+          username: `@${paramUser}`,
+          loginAt: new Date().toISOString()
+        });
+        return;
+      }
+    } catch (e) {}
+  }
+
   function initDynamicProjects() {
+    checkAutoAuth();
     // 1. Arxivdagi o'chirilgan kartochkalarni DOM dan olib tashlash
     try {
       const archive = getDeletedArchive();
@@ -952,25 +1325,25 @@ document.addEventListener('DOMContentLoaded', () => {
           </div>
 
           <div class="modal-section-block">
-            <span class="section-tag-pill tag-green">🎓 O'qish &amp; Amaliyot</span>
+            <span class="section-tag-pill tag-green"><span class="tg-sticker tg-anim-user">🎓</span> O'qish &amp; Amaliyot</span>
             <h4 class="modal-section-heading">Ta'lim va Professional Tajriba</h4>
             <div class="modal-edu-list">
               <div class="modal-edu-card edu-tatu">
-                <span class="edu-card-icon">🎓</span>
+                <span class="edu-card-icon"><span class="tg-sticker tg-anim-user">🎓</span></span>
                 <div class="edu-card-info">
                   <strong>TATU Farg'ona filiali</strong>
                   <span class="edu-card-desc">Axborot texnologiyalari (5-semestr talabasi). Dasturiy ta'minot injiniringi va algoritmlar.</span>
                 </div>
               </div>
               <div class="modal-edu-card edu-najot">
-                <span class="edu-card-icon">⚡</span>
+                <span class="edu-card-icon"><span class="tg-sticker tg-anim-zap">⚡</span></span>
                 <div class="edu-card-info">
                   <strong>Najot Ta'lim IT Akademiyasi</strong>
                   <span class="edu-card-desc">Full-Stack veb dasturlash va murakkab loyihalar bo'yicha intensiv ta'lim.</span>
                 </div>
               </div>
               <div class="modal-edu-card edu-cambridge">
-                <span class="edu-card-icon">🇬🇧</span>
+                <span class="edu-card-icon"><span class="tg-sticker tg-anim-globe">🇬🇧</span></span>
                 <div class="edu-card-info">
                   <strong>Cambridge O'quv Markazi</strong>
                   <span class="edu-card-desc">Ingliz tili (Writing, Speaking, Grammar) — xalqaro miqyosdagi EdTech loyihalar bilan ishlash darajasi.</span>
@@ -980,9 +1353,10 @@ document.addEventListener('DOMContentLoaded', () => {
           </div>
 
           <div class="modal-section-block">
-            <span class="section-tag-pill tag-purple">🛠️ Stack &amp; Texnologiyalar</span>
+            <span class="section-tag-pill tag-purple"><span class="tg-sticker tg-anim-tools">🛠️</span> Stack &amp; Texnologiyalar</span>
             <h4 class="modal-section-heading">Amaliy Ko'nikmalarim</h4>
             <div class="modal-tech-pills">
+              <span class="modal-pill pill-blue">React.js &amp; Frontend</span>
               <span class="modal-pill pill-blue">JavaScript (ES6+)</span>
               <span class="modal-pill pill-blue">HTML5 &amp; CSS3</span>
               <span class="modal-pill pill-blue">Responsive Web UI/UX</span>
@@ -990,14 +1364,12 @@ document.addEventListener('DOMContentLoaded', () => {
               <span class="modal-pill pill-green">Telegram Bot API &amp; Webhooks</span>
               <span class="modal-pill pill-purple">MySQL Ma'lumotlar Bazasi</span>
               <span class="modal-pill pill-purple">REST API &amp; JSON</span>
-              <span class="modal-pill pill-amber">Base44 SaaS Platformasi</span>
-              <span class="modal-pill pill-amber">Render Cloud Hosting</span>
               <span class="modal-pill pill-amber">Git &amp; GitHub</span>
             </div>
           </div>
 
           <div class="modal-section-block">
-            <h4 class="modal-section-heading">📄 Rasmiy Rezyume (CV)</h4>
+            <h4 class="modal-section-heading"><span class="tg-sticker tg-anim-chart">📄</span> Rasmiy Rezyume (CV)</h4>
             <p class="modal-paragraph">
               Mening to'liq ma'lumotlarim, tajribam va aloqa vositalarim jamlangan rezyumeni PDF formatida yuklab olishingiz mumkin:
             </p>
@@ -1060,19 +1432,19 @@ document.addEventListener('DOMContentLoaded', () => {
       subtitle: `Toifa: ${badge}`,
       contentHtml: `
         <div class="modal-section-block">
-          <span class="section-tag-pill tag-blue">🚀 Loyiha tavsifi</span>
+          <span class="section-tag-pill tag-blue"><span class="tg-sticker tg-anim-rocket">🚀</span> Loyiha tavsifi</span>
           <p class="modal-paragraph modal-lead">${desc}</p>
         </div>
 
         <div class="modal-section-block">
-          <h4 class="modal-section-heading">🛠️ Ishlatilgan Texnologiyalar</h4>
+          <h4 class="modal-section-heading"><span class="tg-sticker tg-anim-tools">🛠️</span> Ishlatilgan Texnologiyalar</h4>
           <div class="modal-tech-pills">
             ${tagsHtml}
           </div>
         </div>
 
         <div class="modal-section-block">
-          <h4 class="modal-section-heading">🔗 To'g'ridan-to'g'ri havola</h4>
+          <h4 class="modal-section-heading"><span class="tg-sticker tg-anim-zap">🔗</span> To'g'ridan-to'g'ri havola</h4>
           <p class="modal-paragraph">
             Ushbu loyiha internet tarmog'ida jonli ishlamoqda. Sinab ko'rish uchun quyidagi tugmani bosing:
           </p>
@@ -1132,4 +1504,67 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     });
   }
+
+  // ====================================================
+  // 11. FOOTER SOCIAL LINKS SEQUENTIAL WAVE ANIMATION
+  // ====================================================
+  function initSequentialSocialWave() {
+    const container = document.querySelector('.footer-social-wrap') || document.querySelector('.footer-links');
+    if (!container) return;
+    const links = Array.from(container.querySelectorAll('.footer-link'));
+    if (!links.length) return;
+
+    let currentIdx = 0;
+    let isHovered = false;
+    let timerId = null;
+
+    function clearAllWave() {
+      links.forEach(l => l.classList.remove('is-wave-active'));
+    }
+
+    container.addEventListener('mouseenter', () => {
+      isHovered = true;
+      clearAllWave();
+      if (timerId) clearTimeout(timerId);
+    });
+
+    container.addEventListener('mouseleave', () => {
+      isHovered = false;
+      if (timerId) clearTimeout(timerId);
+      timerId = setTimeout(triggerNextWave, 600);
+    });
+
+    // Har bir tugma faqat YAKKA O'ZI navbati bilan ko'tariladi:
+    // Hech qachon ikkita tugma bir vaqtda qimirlamaydi yoki yonmaydi!
+    // Tugma ko'tarilganda ichidagi stiker/ikonkasi ham Telegram stikeri kabi o'ynab turadi!
+    function triggerNextWave() {
+      if (isHovered || document.hidden) {
+        clearAllWave();
+        timerId = setTimeout(triggerNextWave, 800);
+        return;
+      }
+
+      // Qat'iy: avval barcha tugmalarni tozalaymiz
+      clearAllWave();
+
+      const activeLink = links[currentIdx];
+      if (activeLink) {
+        activeLink.classList.add('is-wave-active');
+      }
+
+      currentIdx = (currentIdx + 1) % links.length;
+
+      // 950ms ko'tarilib nur sochib va ichidagi stikeri o'ynab turgach, sekin 0.3s da joyiga qaytadi
+      timerId = setTimeout(() => {
+        clearAllWave();
+        // 400ms tinch oraliq: barcha tugmalar tinch holatda turadi, so'ng navbatdagi sayt tugmasiga o'tadi
+        timerId = setTimeout(triggerNextWave, 400);
+      }, 950);
+    }
+
+    // Dastlabki start
+    timerId = setTimeout(triggerNextWave, 600);
+  }
+
+  initSequentialSocialWave();
 });
